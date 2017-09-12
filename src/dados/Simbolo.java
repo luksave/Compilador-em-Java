@@ -1,0 +1,36 @@
+package dados;
+
+public class Simbolo {
+	
+	private String token, lexema, tipo;
+	
+	public Simbolo(String token, String lexema, String tipo) {
+		this.token = token;
+		this.lexema = lexema;
+		this.tipo = tipo;
+	}
+	
+	public String getLexema(){
+		return this.lexema;
+	}
+	
+	public String getToken(){
+		return this.token;		
+	}
+	
+	public String getTipo(){
+		return this.tipo;	
+	}
+	
+	public void setLexema(String lexema) {
+		this.lexema = lexema;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+}
