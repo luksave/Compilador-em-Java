@@ -4,9 +4,8 @@ import java.io.IOException;
 
 import tabelas.*;
 import dados.*;
-
+//É só um teste.
 public class Main {
-
     public static void main(String[] args) {
         // TODO Auto-generated method stub
     	String S[]; // Aqui vou colocar os valores da Tabela de Transição
