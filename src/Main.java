@@ -37,6 +37,19 @@ public class Main {
     	tabelahash.tabeladesimbolos.put("leia", sim5);
     	Simbolo sim6 = new Simbolo ("se", "se", " ");
     	tabelahash.tabeladesimbolos.put("se", sim6);
+    	Simbolo sim7 = new Simbolo ("entao", "entao", " ");
+    	tabelahash.tabeladesimbolos.put("entao", sim7);
+    	Simbolo sim8 = new Simbolo ("fimse", "fimse", " ");
+    	tabelahash.tabeladesimbolos.put("fimse", sim8);
+    	Simbolo sim9 = new Simbolo ("fim", "fim", " ");
+    	tabelahash.tabeladesimbolos.put("fim", sim9);
+    	Simbolo sim10 = new Simbolo ("inteiro", "inteiro", " ");
+    	tabelahash.tabeladesimbolos.put("inteiro", sim10);
+    	Simbolo sim11 = new Simbolo ("literal", "literal", " ");
+    	tabelahash.tabeladesimbolos.put("literal", sim11);
+    	Simbolo sim12 = new Simbolo ("real", "real", " ");
+    	tabelahash.tabeladesimbolos.put("real", sim12);
+    	
     	
         try {
             FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/eclipse-workspace/Analisador Lexico/src/texto.txt");
