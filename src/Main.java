@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import tabelas.*;
 import dados.*;
-//É só um teste.
+
 public class Main {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -49,19 +49,19 @@ public class Main {
     	Simbolo sim12 = new Simbolo ("real", "real", " ");
     	tabelahash.tabeladesimbolos.put("real", sim12);
     	
-    	
+    
         try {
-            FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/eclipse-workspace/Analisador Lexico/src/texto.txt");
+            FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
             BufferedReader lerArquivo = new BufferedReader(arquivo);
 
             int caracter = 0;
 
             while ((caracter = lerArquivo.read()) != -1) {//Enquanto não é o último caracter
-
-                System.out.println((char) caracter);
-
+        
+            	System.out.println((char) caracter);
+            
             }
-
+            
             arquivo.close();
 
         } catch (IOException e) {
