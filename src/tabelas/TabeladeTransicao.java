@@ -2,17 +2,17 @@ package tabelas;
 
 public class TabeladeTransicao {
 	
-	private String elemento;
+	private int elemento;
 	
-	public TabeladeTransicao(String elemento){
+	public TabeladeTransicao(int elemento){
 		this.elemento = elemento;
 	}
 
-	public String getElemento() {
+	public int getElemento() {
 		return elemento;
 	}
 
-	public void setElemento(String elemento) {
+	public void setElemento(int elemento) {
 		this.elemento = elemento;
 	}
 
