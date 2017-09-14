@@ -39,19 +39,19 @@ public class Main {
     		       26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     		      132,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}; 
     	/*Legenda da TABELA:
-    		Primeira linha utilizei a Tabela ASCII para fazer referência aos caracteres.
-    		A Tabela ASCII vai até 127, então usei números acima desse valor como auxiliares.
-    		Números: 128 é o vértice da tabela, tinha que colocar um número peguei o 128
-    				 129 representa qualquer digito diferente dos referênciados nas colunas
+    		Primeira linha utilizei a Tabela ASCII para fazer referÃªncia aos caracteres.
+    		A Tabela ASCII vai atÃ© 127, entÃ£o usei nÃºmeros acima desse valor como auxiliares.
+    		NÃºmeros: 128 Ã© o vÃ©rtice da tabela, tinha que colocar um nÃºmero peguei o 128
+    				 129 representa qualquer digito diferente dos referÃªnciados nas colunas
     				 130 representa EOF
     				 131 representa a linha do estado inicial
     				 132 representa a linha dos erros*/
     	
     	//Aqui eu crio a tabela de transicao e passo os valores para ela
-    	TabeladeTransicao tabeladetransicao[][] = new TabeladeTransicao [28][23];
+    	TabeladeTransicao tabeladetransicao[][] = new TabeladeTransicao [29][24];
     	int t = 0;
-        for (int i = 0; i < 28; i++) {
-            for (int j = 0; j < 23; j++) {
+        for (int i = 0; i < 29; i++) {
+            for (int j = 0; j < 24; j++) {
                 tabeladetransicao[i][j] = new TabeladeTransicao(S[t]); // Ta com erro pq eu n coloquei valores para S
                 t++;
             }
@@ -60,7 +60,7 @@ public class Main {
     	//Aqui eu crio a tabela hash de simbolos 
         TabeladeSimbolos tabelahash = new TabeladeSimbolos();
         
-        //Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash - P.S. -> Não testei essa Hash, temos que testar... 
+        //Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash - P.S. -> NÃ£o testei essa Hash, temos que testar... 
     	Simbolo sim1 = new Simbolo ("inicio", "inicio", " ");
     	tabelahash.tabeladesimbolos.put("inicio", sim1);
     	Simbolo sim2 = new Simbolo ("varinicio", "varinicio", " ");
@@ -95,7 +95,7 @@ public class Main {
 
             int caracter = 0;
 
-            while ((caracter = lerArquivo.read()) != -1) {//Enquanto não é o último caracter
+            while ((caracter = lerArquivo.read()) != -1) {//Enquanto nÃ£o Ã© o Ãºltimo caracter
         
             	System.out.println((char) caracter);
             
