@@ -8,10 +8,7 @@ public class TabeladeSimbolos {
 	public Hashtable<String,Simbolo> tabeladesimbolos;
 	
 	public TabeladeSimbolos(){
-		
+		this.tabeladesimbolos = new <String, Simbolo> Hashtable();
 	}
 	
-	public void put(String s, Simbolo simbolo) {
-		tabeladesimbolos.put(s, simbolo);		
-	}
 }
