@@ -98,7 +98,8 @@ public class Main {
     	
         try {
             FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
-            BufferedReader lerArquivo = new BufferedReader(arquivo);
+            BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
+            StringBuilder bffCaracter = new StringBuilder();		//Buffer para caracteres.
 
             int caracter = 0, linha = 1, line = 0, coluna = 0;	//Caracter para leitura dos caracteres.	
             Scanner s = new Scanner(System.in);					//Para ler algo do teclado e iterar o while.
@@ -107,6 +108,19 @@ public class Main {
         	System.out.println("Estado inicial: "+estados.peek());
             
             while ((caracter = lerArquivo.read()) != -1) {//Enquanto nÃo é o último caractere.
+            	//Buffer de caracteres recebe o caractere atual. 
+            	//NÃO deve adicionar espaço, tabulação ou pulo de linha quando fora dos estados 15 ou 17.
+            	if(caracter == 10 || caracter == 32 ) {
+            		if((estados.peek() == 15) || estados.peek() == 17)
+            			bffCaracter.append((char)caracter);
+            		else 
+            			bffCaracter.delete(0, bffCaracter.length());
+            	//Se não é espaço, tabulação ou pulo de linha, adicione o caractere normalmente.
+            	}else {
+            		bffCaracter.append((char)caracter);
+            	
+            	}
+            	
             	//Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
             	if(caracter >= 48 && caracter <= 57) coluna = 1;
             	
@@ -124,11 +138,13 @@ public class Main {
             		if(tabeladetransicao[i][0].getElemento() == estados.peek()) {		
             			//Se o estado resultado não for o estado atual.
             			if(tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
-            				//Se o estado resultado é 0, apague a pilha e volte ao início.
+            				//Se o estado resultado é 0, apague a pilha e o buffer. Volte ao início.
             				if(tabeladetransicao[i][coluna].getElemento() == 0) {
             					//Esvazia a pilha. Volte o estado atual para inicial.
                 				while(!estados.isEmpty())estados.pop();
                         		estados.push(tabeladetransicao[1][0].getElemento());
+                        		//Enviar o conteúdo do buffer para tabela de símbolos.
+                        		//Apagar o conteúdo do buffer.
                         		
                 			}
             				//Senão atualize o estado atual.
@@ -142,7 +158,8 @@ public class Main {
             	System.out.println(
             			" - Caracter: "		+(char)caracter+
             			" - Dec: "			+caracter+
-            			" - Estado atual: "	+estados.peek());
+            			" - Estado atual: "	+estados.peek()+
+            			" - Lexema atual: " +bffCaracter);
                 
             	s.nextLine();//Para iterar na leitura do arquivo.
             	
