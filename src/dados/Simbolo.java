@@ -7,7 +7,7 @@ public class Simbolo {
 	public Simbolo( String lexema, String token, String tipo) {
 		this.lexema = lexema;
 		this.token = token;
-		this.tipo = tipo;
+		this.tipo = tipo; 
 	}
 	
 	public String getLexema(){
