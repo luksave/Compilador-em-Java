@@ -110,23 +110,17 @@ public class Main {
             FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
             BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
             StringBuilder bffCaracter = new StringBuilder(); //Buffer para caracteres.
-
+            StringBuilder bffAuxiliar = new StringBuilder(); //Buffer para auxiliar.
+            
             int caracter = 0, linha = 1, coluna = 0;	//Caracter para leitura dos caracteres.	
             Scanner s = new Scanner(System.in);	//Para ler algo do teclado e iterar o while.
 
             estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
             System.out.println("Estado inicial: " + estados.peek());
-
+            int inter = 0;
             while ((caracter = lerArquivo.read()) != -1) {	//Enquanto nÃo é o último caractere.                 
-                //Se o estado não for um comentário ou uma string
-            	if(estados.peek() != 15 && estados.peek() != 17) {
-            		if((caracter != 10 && caracter != 32))
-            			bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
-            	} //Quando o estado for comentário ou string
-            	else {
-            		bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
-            	}
-            	
+                if((caracter != 10 && caracter != 32) || (estados.peek() == 15 || estados.peek() == 17 ))
+                	bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
             	
                 //Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
                 if (caracter >= 48 && caracter <= 57) {
@@ -147,22 +141,30 @@ public class Main {
 
                 //Procura na tabela a linha do estado atual
                 for (int i = 0; i < 29; i++) {
-                    //Se o estado atual for encontrado.
+                
+                    //Procura a linha do estado atual
                     if (tabeladetransicao[i][0].getElemento() == estados.peek()) {
 
-                        //Se o estado encontrado não for o estado atual.
+                        //Se a transicao do estado [i] [coluna] não for para o estado atual.
                         if (tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
-
-                            //Se o estado resultado é 0,  desempilho a pilha e limpo o buffer. Volte ao início.
+                        	
+                            //Se a transicao do estado [i] [coluna]é 0, limpe a pilha e o buffer. Volte ao estado inicial.
                             if (tabeladetransicao[i][coluna].getElemento() == 0) {
+                            	inter ++;	
+                            	if(!(estados.peek() == 15 || estados.peek() == 17) && (caracter == 10 || caracter == 32)) {
+                            		bffAuxiliar.append(bffCaracter.subSequence(0, bffCaracter.length()));
+                            		bffCaracter.delete(0, bffCaracter.length());
+                            		bffCaracter.append(bffAuxiliar);                                		
 
-                                //Verifico se o lexema já esta na Tabela de Simbolos
-                                //	Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos               	
+                            	}
+
+                            	//Verifico se o lexema já esta na Tabela de Simbolos
+                                //Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos               	
                                 if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString())) {
-                                    System.out.println(" Lexema: " + tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getLexema()
+                                    System.out.println(+inter+"- Lexema: " + tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getLexema()
                                             + " Token: " + tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getToken()
                                             + " Tipo: " + tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getTipo());
-
+                                   
                                 //  Se não, vejo qual o estado de aceitação que o lexema parou e adiciono na Tabela de Simbolos
                                 } else {
                                     Simbolo simaux;
@@ -170,7 +172,7 @@ public class Main {
                                         case 1:
                                             simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
                                             tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
-                                            System.out.println("Lexema: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema()
+                                            System.out.println(+inter+"- Lexema: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema()
                                                     + " Token: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken()
                                                     + " Tipo: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo());
                                             break;
@@ -316,12 +318,14 @@ public class Main {
                                         case 25:
                                             simaux = new Simbolo(bffCaracter.toString(), "id", "Identificador");
                                             tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
-                                            System.out.println("Lexema: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema()
+                                            System.out.println(+inter+"- Lexema: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema()
                                                     + " Token: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken()
                                                     + " Tipo: " + tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo());
+                                            
                                             break;
                                         default:
                                             System.out.println("Erro na leitura da pilha de Estados.\n");
+                                      
                                     }
 
                                     //Esvazia a pilha.
@@ -334,6 +338,7 @@ public class Main {
 
                                     //Apagar o conteúdo do buffer.
                                     bffCaracter.delete(0, bffCaracter.length());
+                                    bffAuxiliar.delete(0, bffAuxiliar.length());
 
                                 }
                             } //Senão atualize o estado atual.
@@ -346,11 +351,9 @@ public class Main {
                                 System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(coluna));
 
                             }
-                        }
+                        } //s.nextLine();//Para iterar na leitura do arquivo.
                     }
-
-                    //s.nextLine();//Para iterar na leitura do arquivo.
-
+                  
                 }
                 
                 s.close();
