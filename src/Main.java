@@ -107,7 +107,7 @@ public class Main {
         tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
 
         try {
-            FileReader arquivo = new FileReader("C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+            FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
             BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
             StringBuilder bffCaracter = new StringBuilder(); //Buffer para caracteres.
 
@@ -118,8 +118,16 @@ public class Main {
             System.out.println("Estado inicial: " + estados.peek());
 
             while ((caracter = lerArquivo.read()) != -1) {	//Enquanto nÃo é o último caractere.                 
-                bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
-
+                //Se o estado não for um comentário ou uma string
+            	if(estados.peek() != 15 && estados.peek() != 17) {
+            		if((caracter != 10 && caracter != 32))
+            			bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
+            	} //Quando o estado for comentário ou string
+            	else {
+            		bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
+            	}
+            	
+            	
                 //Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
                 if (caracter >= 48 && caracter <= 57) {
                     coluna = 1;
