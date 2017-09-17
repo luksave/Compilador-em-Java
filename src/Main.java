@@ -98,7 +98,7 @@ public class Main {
     	
     	//Preencho a Tabela de Erros
     	tabelahashe.tabeladeerros.put(131, "Identificador não permitido");
-    	tabelahashe.tabeladeerros.put(15, "Erro de foramatação de comentário (aspas)");
+    	tabelahashe.tabeladeerros.put(15, "Constantes literais não permitidas");
     	tabelahashe.tabeladeerros.put(17, "Erro de foramatação de comentário (chaves)");
     	tabelahashe.tabeladeerros.put(20, "Constantes númericas não permitidas");
     	tabelahashe.tabeladeerros.put(22, "Constantes númericas não permitidas");
@@ -109,7 +109,7 @@ public class Main {
             BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
             StringBuilder bffCaracter = new StringBuilder(); //Buffer para caracteres.
 
-            int caracter = 0, linha = 1, line = 0, coluna = 0;	//Caracter para leitura dos caracteres.	
+            int caracter = 0, linha = 1, coluna = 0;	//Caracter para leitura dos caracteres.	
             Scanner s = new Scanner(System.in);	//Para ler algo do teclado e iterar o while.
 
             estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
@@ -147,14 +147,113 @@ public class Main {
                         	
                             //Se o estado resultado é 0,  desempilho a pilha e limpo o buffer. Volte ao início.
                             if (tabeladetransicao[i][coluna].getElemento() == 0) {
+                                                        
+                            	//Verifico se o lexema já esta na Tabela de Simbolos
+                            	
+                            	//	Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos               	
+                                if(tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString())) {
+                                	System.out.println("Lexema: "+tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getLexema()
+                                					 + "Token: "+tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getToken()
+                                					 + "Tipo: "+tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getTipo());
+                                
+                                //  Se não, vejo qual o estado de aceitação que o lexema parou e adiciono na Tabela de Simbolos
+                                }else{
+                                	Simbolo simaux;
+                                	switch (estados.peek()) {
+                                		case 1:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 2:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 3:
+                                			simaux = new Simbolo (" ", "EOF", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 4:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 5:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 6:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 7:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;	
+                                		case 8:
+                                			simaux = new Simbolo (bffCaracter.toString(), "PT_V", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 9:
+                                			simaux = new Simbolo (bffCaracter.toString(), "AB_P", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 10:
+                                			simaux = new Simbolo (bffCaracter.toString(), "FC_P", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 11:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPM", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 12:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 13:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 14:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 26:
+                                			simaux = new Simbolo (bffCaracter.toString(), "OPR", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;                               		
+                                		case 16:
+                                			simaux = new Simbolo (bffCaracter.toString(), "Literal", "literal");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 19:
+                                			simaux = new Simbolo (bffCaracter.toString(), "Num", "inteiro");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 21:
+                                			simaux = new Simbolo (bffCaracter.toString(), "Num", "real");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		case 24:
+                                			simaux = new Simbolo (bffCaracter.toString(), "Num", " ");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;	
+                                		case 25:
+                                			simaux = new Simbolo (bffCaracter.toString(), "id", "Identificador");
+                                			tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+                                			break;
+                                		default:
+                                			System.out.println("Erro na leitura da pilha de Estados.\n");
+                                	}
+                                	
+                                }
+                                
+                                //Volte o estado atual para inicial.
+                                estados.push(tabeladetransicao[1][0].getElemento());
+                                
                                 //Esvazia a pilha.
                                 while (!estados.isEmpty()) {
                                     estados.pop();
-                                }                        
-                                //Volte o estado atual para inicial.
-                                estados.push(tabeladetransicao[1][0].getElemento());
-                                //Enviar o conteúdo do buffer para tabela de símbolos.
-                                //Falta essa parte aqui
+                                }
+                                
                                 //Apagar o conteúdo do buffer.
                                 bffCaracter.delete(0, bffCaracter.length());
 
@@ -164,7 +263,10 @@ public class Main {
                             else {
                                 estados.push(tabeladetransicao[i][coluna].getElemento());
                             }
-
+                            
+                            if(tabeladetransicao[i][coluna].getElemento() == 132) {
+                            	System.out.println("ERRO ENCONTRADO - "+tabelahashe.tabeladeerros.get(coluna));
+                            }
                         }
                     }
                 }
