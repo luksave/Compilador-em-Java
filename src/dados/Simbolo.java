@@ -2,11 +2,11 @@ package dados;
 
 public class Simbolo {
 	
-	private String token, lexema, tipo;
+	private String lexema, token, tipo;
 	
-	public Simbolo(String token, String lexema, String tipo) {
-		this.token = token;
+	public Simbolo( String lexema, String token, String tipo) {
 		this.lexema = lexema;
+		this.token = token;
 		this.tipo = tipo;
 	}
 	
