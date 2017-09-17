@@ -1,12 +1,5 @@
 O QUE TEMOS QUE FAZER
 
--> Tabela de Transição
-   - Identificar os estados de aceitação ou finais
-
--> Tabela de Erros
-   - Identificar os erros pela Tabela de transição
-   - Preencher a Tabela de Erros no nosso programa
-
 -> Buffers
    - Fazer um Buffer para leitura do arquivo
    - Fazer um Buffer para leitura dos lexemas

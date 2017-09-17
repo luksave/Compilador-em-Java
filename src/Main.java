@@ -41,33 +41,33 @@ public class Main {
     		       26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
     		      132,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}; 
     	/*Legenda da TABELA:
-    		Primeira linha utilizei a Tabela ASCII para fazer refer√™ncia aos caracteres.
-    		A Tabela ASCII vai at√© 127, ent√£o usei n√∫meros acima desse valor como auxiliares.
-    		N√∫meros: 128 √© o v√©rtice da tabela, tinha que colocar um n√∫mero peguei o 128
-    				 129 representa qualquer digito diferente dos refer√™nciados nas colunas
+    		Primeira linha utilizei a Tabela ASCII para fazer referencia aos caracteres.
+    		A Tabela ASCII vai ate 127, entao usei numeros acima desse valor como auxiliares.
+    		Numeros: 128 E o vertice da tabela, tinha que colocar um numero, entao peguei o 128
+    				 129 representa qualquer digito diferente dos referenciados nas colunas
     				 130 representa EOF
     				 131 representa a linha do estado inicial
     				 132 representa a linha dos erros*/
-  
-    
-    	//Aqui eu crio a pilha dos estados da tabela de transiÁ„o
-    	Stack <Integer> estados = new Stack <Integer> ();
     	
     	//Aqui eu crio a tabela de transicao e passo os valores para ela
     	TabeladeTransicao tabeladetransicao[][] = new TabeladeTransicao [29][24];
     	
+    	//Preencho a Tabela de TransiÁ„o
     	int t = 0;
         for (int i = 0; i < 29; i++) {
             for (int j = 0; j < 24; j++) {
-                tabeladetransicao[i][j] = new TabeladeTransicao(S[t]); // Ta com erro pq eu n coloquei valores para S
+                tabeladetransicao[i][j] = new TabeladeTransicao(S[t]); 
                 t++;
             }
         }
     	
+        //Aqui eu crio a pilha dos estados da tabela de transiÁ„o
+    	Stack <Integer> estados = new Stack <Integer> ();
+    	
     	//Aqui eu crio a tabela hash de simbolos 
         TabeladeSimbolos tabelahash = new TabeladeSimbolos();
         
-        //Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash - P.S. -> N√£o testei essa Hash, temos que testar... 
+        //Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash
     	Simbolo sim1 = new Simbolo ("inicio", "inicio", " ");
     	tabelahash.tabeladesimbolos.put("inicio", sim1);
     	Simbolo sim2 = new Simbolo ("varinicio", "varinicio", " ");
@@ -94,70 +94,92 @@ public class Main {
     	tabelahash.tabeladesimbolos.put("real", sim12);
     	
     	//Aqui eu crio a tabela hash de erros
-    	TabeladeErros tabelahasherros = new TabeladeErros();
+    	TabeladeErros tabelahashe = new TabeladeErros();
     	
-        try {
+    	//Preencho a Tabela de Erros
+    	tabelahashe.tabeladeerros.put(131, "Identificador n„o permitido");
+    	tabelahashe.tabeladeerros.put(15, "Erro de foramataÁ„o de coment·rio (aspas)");
+    	tabelahashe.tabeladeerros.put(17, "Erro de foramataÁ„o de coment·rio (chaves)");
+    	tabelahashe.tabeladeerros.put(20, "Constantes n˙mericas n„o permitidas");
+    	tabelahashe.tabeladeerros.put(22, "Constantes n˙mericas n„o permitidas");
+    	tabelahashe.tabeladeerros.put(23, "Constantes n˙mericas n„o permitidas");
+    	
+    	try {
             FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
             BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
-            StringBuilder bffCaracter = new StringBuilder();		//Buffer para caracteres.
+            StringBuilder bffCaracter = new StringBuilder(); //Buffer para caracteres.
 
             int caracter = 0, linha = 1, line = 0, coluna = 0;	//Caracter para leitura dos caracteres.	
-            Scanner s = new Scanner(System.in);					//Para ler algo do teclado e iterar o while.
-      
+            Scanner s = new Scanner(System.in);	//Para ler algo do teclado e iterar o while.
+
             estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
-        	System.out.println("Estado inicial: "+estados.peek());
-            
-            while ((caracter = lerArquivo.read()) != -1) {//Enquanto n√o È o ˙ltimo caractere.
-            	//Buffer de caracteres recebe o caractere atual. 
-            		bffCaracter.append((char)caracter);
-            	
-            	//Se o caracter estiver entre 48 e 57 È um digito. Portanto coluna dos digitos
-            	if(caracter >= 48 && caracter <= 57) coluna = 1;
-            	
-            	//Se o caracter estiver entre 97 e 122 ou entre 65 e 90 È uma Letra. Portanto coluna das letras
-            	if( (caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90) )coluna = 2;
-            
-            	//Quando n„o È um digito ou uma letra, procure a coluna do caracter.
-            	else for(int i = 0; i < 24; i++)
-            			if(tabeladetransicao[0][i].getElemento() == caracter)
-            				coluna = i;
-            	
-            	//Procura na tabela a linha do estado atual
-            	for(int i = 0; i < 29; i++)
-            		//Se o estado atual for encontrado.
-            		if(tabeladetransicao[i][0].getElemento() == estados.peek()) {		
-            			//Se o estado resultado n„o for o estado atual.
-            			if(tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
-            				//Se o estado resultado È 0, apague a pilha e o buffer. Volte ao inÌcio.
-            				if(tabeladetransicao[i][coluna].getElemento() == 0) {
-            					//Esvazia a pilha.
-                				while(!estados.isEmpty())estados.pop();
-                				//Volte o estado atual para inicial.
-                        		estados.push(tabeladetransicao[1][0].getElemento());
-                        		//Enviar o conte˙do do buffer para tabela de sÌmbolos.
-                        			//Falta essa parte aqui
-                        		//Apagar o conte˙do do buffer.
-                    			bffCaracter.delete(0, bffCaracter.length());
-                        		
-                			}
-            				//Sen„o atualize o estado atual.
-            				else 
-                				estados.push(tabeladetransicao[i][coluna].getElemento());	
-          
-            			}
-            		}
-            	
-            //Todo esse print È apenas para provar o funcionamento da pilha.
-            	System.out.println(
-            			" - Caracter: "		+(char)caracter+
-            			" - Dec: "			+caracter+
-            			" - Estado atual: "	+estados.peek()+
-            			" - Lexema atual: " +bffCaracter);
-                
-            	s.nextLine();//Para iterar na leitura do arquivo.
-            	
+            System.out.println("Estado inicial: " + estados.peek());
+
+            while ((caracter = lerArquivo.read()) != -1) {	//Enquanto n√o È o ˙ltimo caractere.                 
+                bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
+
+                //Se o caracter estiver entre 48 e 57 È um digito. Portanto coluna dos digitos
+                if (caracter >= 48 && caracter <= 57) {
+                    coluna = 1;
+                }
+
+                //Se o caracter estiver entre 97 e 122 ou entre 65 e 90 È uma Letra. Portanto coluna das letras
+                if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90)) {
+                    coluna = 2;
+                } 
+                //Quando n„o È um digito ou uma letra, procure a coluna do caracter.
+                else {
+                    for (int i = 0; i < 24; i++) {
+                        if (tabeladetransicao[0][i].getElemento() == caracter) {
+                            coluna = i;
+                        }
+                    }
+                }
+
+                //Procura na tabela a linha do estado atual
+                for (int i = 0; i < 29; i++) 
+                {	
+                	//Se o estado atual for encontrado.
+                    if (tabeladetransicao[i][0].getElemento() == estados.peek()) {
+                    	
+                        //Se o estado encontrado n„o for o estado atual.
+                        if (tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
+                        	
+                            //Se o estado resultado È 0,  desempilho a pilha e limpo o buffer. Volte ao inÌcio.
+                            if (tabeladetransicao[i][coluna].getElemento() == 0) {
+                                //Esvazia a pilha.
+                                while (!estados.isEmpty()) {
+                                    estados.pop();
+                                }                        
+                                //Volte o estado atual para inicial.
+                                estados.push(tabeladetransicao[1][0].getElemento());
+                                //Enviar o conte˙do do buffer para tabela de sÌmbolos.
+                                //Falta essa parte aqui
+                                //Apagar o conte˙do do buffer.
+                                bffCaracter.delete(0, bffCaracter.length());
+
+                            } 
+                            
+                            //Sen„o atualize o estado atual.
+                            else {
+                                estados.push(tabeladetransicao[i][coluna].getElemento());
+                            }
+
+                        }
+                    }
+                }
+
+                //Todo esse print È apenas para provar o funcionamento da pilha.
+                System.out.println(
+                        " - Caracter: " + (char) caracter
+                        + " - Dec: " + caracter
+                        + " - Estado atual: " + estados.peek()
+                        + " - Lexema atual: " + bffCaracter);
+
+                s.nextLine();//Para iterar na leitura do arquivo.
+
             }
-            
+
             s.close();
             arquivo.close();
 
