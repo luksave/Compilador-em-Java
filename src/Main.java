@@ -107,7 +107,7 @@ public class Main {
         tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
 
         try {
-            FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
+            FileReader arquivo = new FileReader("C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
             BufferedReader lerArquivo = new BufferedReader(arquivo);//Buffer para arquivo.
             StringBuilder bffCaracter = new StringBuilder(); //Buffer para caracteres.
 
@@ -316,13 +316,13 @@ public class Main {
                                             System.out.println("Erro na leitura da pilha de Estados.\n");
                                     }
 
-                                    //Volte o estado atual para inicial.
-                                    estados.push(tabeladetransicao[1][0].getElemento());
-
                                     //Esvazia a pilha.
                                     while (!estados.isEmpty()) {
                                         estados.pop();
                                     }
+                                    
+                                    //Volte o estado atual para inicial.
+                                    estados.push(tabeladetransicao[1][0].getElemento());
 
                                     //Apagar o conteúdo do buffer.
                                     bffCaracter.delete(0, bffCaracter.length());
@@ -341,7 +341,7 @@ public class Main {
                         }
                     }
 
-                    s.nextLine();//Para iterar na leitura do arquivo.
+                    //s.nextLine();//Para iterar na leitura do arquivo.
 
                 }
                 
