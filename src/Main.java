@@ -52,7 +52,7 @@ public class Main {
     	//Aqui eu crio a tabela de transicao e passo os valores para ela
     	TabeladeTransicao tabeladetransicao[][] = new TabeladeTransicao [29][24];
     	
-    	//Preencho a Tabela de Transição
+    	//Preencho a Tabela de TransiÃ§Ã£o
     	int t = 0;
         for (int i = 0; i < 29; i++) {
             for (int j = 0; j < 24; j++) {
@@ -61,7 +61,7 @@ public class Main {
             }
         }
     	
-        //Aqui eu crio a pilha dos estados da tabela de transição
+        //Aqui eu crio a pilha dos estados da tabela de transiÃ§Ã£o
     	Stack <Integer> estados = new Stack <Integer> ();
     	
     	//Aqui eu crio a tabela hash de simbolos 
@@ -97,12 +97,12 @@ public class Main {
     	TabeladeErros tabelahashe = new TabeladeErros();
     	
     	//Preencho a Tabela de Erros
-    	tabelahashe.tabeladeerros.put(131, "Identificador não permitido");
-    	tabelahashe.tabeladeerros.put(15, "Constantes literais não permitidas");
-    	tabelahashe.tabeladeerros.put(17, "Erro de foramatação de comentário (chaves)");
-    	tabelahashe.tabeladeerros.put(20, "Constantes númericas não permitidas");
-    	tabelahashe.tabeladeerros.put(22, "Constantes númericas não permitidas");
-    	tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
+    	tabelahashe.tabeladeerros.put(131, "Identificador nÃ£o permitido");
+    	tabelahashe.tabeladeerros.put(15, "Constantes literais nÃ£o permitidas");
+    	tabelahashe.tabeladeerros.put(17, "Erro de formataÃ§Ã£o de comentÃ¡rio (chaves)");
+    	tabelahashe.tabeladeerros.put(20, "Constantes nÃºmericas nÃ£o permitidas");
+    	tabelahashe.tabeladeerros.put(22, "Constantes nÃºmericas nÃ£o permitidas");
+    	tabelahashe.tabeladeerros.put(23, "Constantes nÃºmericas nÃ£o permitidas");
     	
     	try {
             FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
@@ -115,19 +115,19 @@ public class Main {
             estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
             System.out.println("Estado inicial: " + estados.peek());
 
-            while ((caracter = lerArquivo.read()) != -1) {	//Enquanto nÃo é o último caractere.                 
+            while ((caracter = lerArquivo.read()) != -1) {	//Enquanto nÃƒo Ã© o Ãºltimo caractere.                 
                 bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
 
-                //Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
+                //Se o caracter estiver entre 48 e 57 Ã© um digito. Portanto coluna dos digitos
                 if (caracter >= 48 && caracter <= 57) {
                     coluna = 1;
                 }
 
-                //Se o caracter estiver entre 97 e 122 ou entre 65 e 90 é uma Letra. Portanto coluna das letras
+                //Se o caracter estiver entre 97 e 122 ou entre 65 e 90 Ã© uma Letra. Portanto coluna das letras
                 if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90)) {
                     coluna = 2;
                 } 
-                //Quando não é um digito ou uma letra, procure a coluna do caracter.
+                //Quando nÃ£o Ã© um digito ou uma letra, procure a coluna do caracter.
                 else {
                     for (int i = 0; i < 24; i++) {
                         if (tabeladetransicao[0][i].getElemento() == caracter) {
@@ -142,13 +142,13 @@ public class Main {
                 	//Se o estado atual for encontrado.
                     if (tabeladetransicao[i][0].getElemento() == estados.peek()) {
                     	
-                        //Se o estado encontrado não for o estado atual.
+                        //Se o estado encontrado nÃ£o for o estado atual.
                         if (tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
                         	
-                            //Se o estado resultado é 0,  desempilho a pilha e limpo o buffer. Volte ao início.
+                            //Se o estado resultado Ã© 0,  desempilho a pilha e limpo o buffer. Volte ao inÃ­cio.
                             if (tabeladetransicao[i][coluna].getElemento() == 0) {
                                                         
-                            	//Verifico se o lexema já esta na Tabela de Simbolos
+                            	//Verifico se o lexema jÃ¡ esta na Tabela de Simbolos
                             	
                             	//	Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos               	
                                 if(tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString())) {
@@ -156,7 +156,7 @@ public class Main {
                                 					 + "Token: "+tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getToken()
                                 					 + "Tipo: "+tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getTipo());
                                 
-                                //  Se não, vejo qual o estado de aceitação que o lexema parou e adiciono na Tabela de Simbolos
+                                //  Se nÃ£o, vejo qual o estado de aceitaÃ§Ã£o que o lexema parou e adiciono na Tabela de Simbolos
                                 }else{
                                 	Simbolo simaux;
                                 	switch (estados.peek()) {
@@ -254,12 +254,12 @@ public class Main {
                                     estados.pop();
                                 }
                                 
-                                //Apagar o conteúdo do buffer.
+                                //Apagar o conteÃºdo do buffer.
                                 bffCaracter.delete(0, bffCaracter.length());
 
                             } 
                             
-                            //Senão atualize o estado atual.
+                            //SenÃ£o atualize o estado atual.
                             else {
                                 estados.push(tabeladetransicao[i][coluna].getElemento());
                             }
@@ -272,7 +272,7 @@ public class Main {
                     }
                 }
 
-                //Todo esse print é apenas para provar o funcionamento da pilha.
+                //Todo esse print Ã© apenas para provar o funcionamento da pilha.
                 System.out.println(
                         " - Caracter: " + (char) caracter
                         + " - Dec: " + caracter
