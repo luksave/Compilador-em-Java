@@ -119,9 +119,10 @@ public class Main {
             System.out.println("Estado inicial: " + estados.peek());
             int inter = 0;
             while ((caracter = lerArquivo.read()) != -1) {	//Enquanto nÃo é o último caractere.                 
-                if((caracter != 10 && caracter != 32) || (estados.peek() == 15 || estados.peek() == 17 ))
-                	bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
             	
+            	if((caracter != 10 && caracter != 32) || (estados.peek() == 15 || estados.peek() == 17 )) {
+                	bffCaracter.append((char) caracter); //Buffer de caracteres recebe o caractere atual.
+                }
                 //Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
                 if (caracter >= 48 && caracter <= 57) {
                     coluna = 1;
