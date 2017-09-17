@@ -264,6 +264,7 @@ public class Main {
                                 estados.push(tabeladetransicao[i][coluna].getElemento());
                             }
                             
+                            //Verifico se ele encontrou um estado de Erro
                             if(tabeladetransicao[i][coluna].getElemento() == 132) {
                             	System.out.println("ERRO ENCONTRADO - "+tabelahashe.tabeladeerros.get(coluna));
                             }
