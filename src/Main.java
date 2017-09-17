@@ -109,17 +109,7 @@ public class Main {
             
             while ((caracter = lerArquivo.read()) != -1) {//Enquanto nÃo é o último caractere.
             	//Buffer de caracteres recebe o caractere atual. 
-            	//NÃO deve adicionar espaço, tabulação ou pulo de linha quando fora dos estados 15 ou 17.
-            	if(caracter == 10 || caracter == 32 ) {
-            		if((estados.peek() == 15) || estados.peek() == 17)
-            			bffCaracter.append((char)caracter);
-            		else 
-            			bffCaracter.delete(0, bffCaracter.length());
-            	//Se não é espaço, tabulação ou pulo de linha, adicione o caractere normalmente.
-            	}else {
             		bffCaracter.append((char)caracter);
-            	
-            	}
             	
             	//Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
             	if(caracter >= 48 && caracter <= 57) coluna = 1;
@@ -140,11 +130,14 @@ public class Main {
             			if(tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
             				//Se o estado resultado é 0, apague a pilha e o buffer. Volte ao início.
             				if(tabeladetransicao[i][coluna].getElemento() == 0) {
-            					//Esvazia a pilha. Volte o estado atual para inicial.
+            					//Esvazia a pilha.
                 				while(!estados.isEmpty())estados.pop();
+                				//Volte o estado atual para inicial.
                         		estados.push(tabeladetransicao[1][0].getElemento());
                         		//Enviar o conteúdo do buffer para tabela de símbolos.
+                        			//Falta essa parte aqui
                         		//Apagar o conteúdo do buffer.
+                    			bffCaracter.delete(0, bffCaracter.length());
                         		
                 			}
             				//Senão atualize o estado atual.
