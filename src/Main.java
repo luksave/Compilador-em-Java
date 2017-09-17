@@ -331,10 +331,16 @@ public class Main {
                             else {
                                 estados.push(tabeladetransicao[i][coluna].getElemento());
                             }
+<<<<<<< HEAD
 
                             //Verifico se ele encontrou um estado de Erro
                             if (tabeladetransicao[i][coluna].getElemento() == 132) {
                                 System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(coluna));
+=======
+                            
+                            if(tabeladetransicao[i][coluna].getElemento() == 132) {
+                            	System.out.println("ERRO ENCONTRADO - "+tabelahashe.tabeladeerros.get(coluna));
+>>>>>>> 6eaf79335badb6ad2f9f64c890c30fc952f9c307
                             }
                         }
                     }
