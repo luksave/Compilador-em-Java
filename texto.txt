@@ -1,4 +1,4 @@
-inicio
+﻿inicio
    varinicio
       A literal;
       B inteiro;
@@ -20,7 +20,7 @@ inicio
    entao
      se (c <2)
      entao
-       escreva "texto”;
+       escreva "texto";
      fimse
    fimse
 

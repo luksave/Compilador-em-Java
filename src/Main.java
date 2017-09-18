@@ -106,7 +106,6 @@ public class Main {
 			Scanner s = new Scanner(System.in); // Para ler algo do teclado e iterar o while.
 
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
-			System.out.println("Estado inicial: " + estados.peek());
 
 			while ((caracter = lerArquivo.read()) != -1) {// Enquanto na e o ultimo caracter.
 
@@ -146,8 +145,6 @@ public class Main {
 				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
 				// inicial do proximo lexema.
 
-				System.out.println("Estado atual: " + estados.peek());
-
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
 
 					// Verifico se o lexema já esta na Tabela de Simbolos
@@ -158,6 +155,7 @@ public class Main {
 								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getLexema() + "\nToken: "
 								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getToken() + "\nTipo: "
 								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getTipo() + "\n");
+						s.nextLine();// Para iterar na leitura do arquivo.
 
 						// Se nao, vejo qual o estado de aceitacao que o lexema parou e adiciono na
 						// Tabela de Simbolos
@@ -329,6 +327,7 @@ public class Main {
 						default:
 							System.out.println("Erro na leitura da pilha de Estados.\n");
 						}
+						s.nextLine();// Para iterar na leitura do arquivo.
 
 					}
 					// Esvazia a pilha.
@@ -350,11 +349,11 @@ public class Main {
 					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
 
-				// Todo esse print e apenas para provar o funcionamento da pilha.
+				/* Todo esse print e apenas para provar o funcionamento da pilha.
 				System.out.println(" - Caracter: " + (char) caracter + " - Dec: " + caracter + " - Estado atual: "
 						+ estados.peek() + " - Lexema atual: " + bffCaracter);
-
-				s.nextLine();// Para iterar na leitura do arquivo.
+				*/
+				
 			}
 
 			s.close();
