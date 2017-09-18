@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -98,7 +101,7 @@ public class Main {
 		tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
 
 		try {
-			FileReader arquivo = new FileReader("C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+			FileReader arquivo = new FileReader("C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
 			BufferedReader lerArquivo = new BufferedReader(arquivo);// Buffer para arquivo.
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 
@@ -106,9 +109,9 @@ public class Main {
 			Scanner s = new Scanner(System.in); // Para ler algo do teclado e iterar o while.
 
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
-
-			while ((caracter = lerArquivo.read()) != -1) {// Enquanto na e o ultimo caracter.
-
+			int erro = 0;
+			while ((caracter = lerArquivo.read()) != -1 && erro == 0) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+				
 				int test = 0;
 
 				// Quando nao e um digito ou uma letra, procure a coluna do caracter.
@@ -128,7 +131,7 @@ public class Main {
 				if (caracter >= 48 && caracter <= 57)
 					coluna = 1;
 
-				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 e uma Letra. Portanto
+				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 eh uma Letra. Portanto
 				// coluna das letras
 				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90))
 					coluna = 2;
@@ -146,7 +149,7 @@ public class Main {
 				// inicial do proximo lexema.
 
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
-
+				
 					// Verifico se o lexema já esta na Tabela de Simbolos
 
 					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
@@ -326,6 +329,7 @@ public class Main {
 							break;
 						default:
 							System.out.println("Erro na leitura da pilha de Estados.\n");
+							erro =1;
 						}
 						s.nextLine();// Para iterar na leitura do arquivo.
 
@@ -343,17 +347,13 @@ public class Main {
 				// Verificando erros
 				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
 					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
+					erro = 1;
 				}
 				
 				if (caracter != 10 && caracter != 13 && caracter != 32)
 					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
 
-				/* Todo esse print e apenas para provar o funcionamento da pilha.
-				System.out.println(" - Caracter: " + (char) caracter + " - Dec: " + caracter + " - Estado atual: "
-						+ estados.peek() + " - Lexema atual: " + bffCaracter);
-				*/
-				
 			}
 
 			s.close();

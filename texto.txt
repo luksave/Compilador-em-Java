@@ -1,4 +1,4 @@
-﻿inicio
+inicio
    varinicio
       A literal;
       B inteiro;
