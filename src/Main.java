@@ -36,11 +36,11 @@ public class Main {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		/*
 		 * Legenda da TABELA: Primeira linha utilizei a Tabela ASCII para fazer
-		 * referÃªncia aos caracteres. A Tabela ASCII vai atÃ© 127, entÃ£o usei nÃºmeros
-		 * acima desse valor como auxiliares. NÃºmeros: 128 Ã© o vÃ©rtice da tabela,
-		 * tinha que colocar um nÃºmero peguei o 128 129 representa qualquer digito
-		 * diferente dos referÃªnciados nas colunas 130 representa EOF 131 representa a
-		 * linha do estado inicial 132 representa a linha dos erros
+		 * referencia aos caracteres. A Tabela ASCII vai ate 127, entao usei nÃumeros
+		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela,
+		 * tinha que colocar um numero peguei o 128; 129 representa qualquer digito
+		 * diferente dos referenciados nas colunas; 130 representa EOF; 131 representa a
+		 * linha do estado inicial; 132 representa a linha dos erros
 		 */
 
 		// Aqui eu crio a pilha dos estados da tabela de transição
@@ -60,8 +60,7 @@ public class Main {
 		// Aqui eu crio a tabela hash de simbolos
 		TabeladeSimbolos tabelahash = new TabeladeSimbolos();
 
-		// Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash - P.S. -> NÃ£o
-		// testei essa Hash, temos que testar...
+		// Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash
 		Simbolo sim1 = new Simbolo("inicio", "inicio", " ");
 		tabelahash.tabeladesimbolos.put("inicio", sim1);
 		Simbolo sim2 = new Simbolo("varinicio", "varinicio", " ");
@@ -109,11 +108,11 @@ public class Main {
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
 			System.out.println("Estado inicial: " + estados.peek());
 
-			while ((caracter = lerArquivo.read()) != -1) {// Enquanto nÃo é o último caractere.
+			while ((caracter = lerArquivo.read()) != -1) {// Enquanto na e o ultimo caracter.
 
 				int test = 0;
 
-				// Quando não é um digito ou uma letra, procure a coluna do caracter.
+				// Quando nao e um digito ou uma letra, procure a coluna do caracter.
 				for (int i = 0; i < 24; i++) {
 					if (tabeladetransicao[0][i].getElemento() == caracter) {
 						coluna = i;
@@ -126,11 +125,11 @@ public class Main {
 					coluna = 19;
 				}
 
-				// Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
+				// Se o caracter estiver entre 48 e 57 e um digito. Portanto coluna dos digitos
 				if (caracter >= 48 && caracter <= 57)
 					coluna = 1;
 
-				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 é uma Letra. Portanto
+				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 e uma Letra. Portanto
 				// coluna das letras
 				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90))
 					coluna = 2;
@@ -143,16 +142,16 @@ public class Main {
 					}
 				}
 
-				// Se o estado resultado é 0, apague a pilha e o buffer. Vá para o estado
+				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
 				// inicial do proximo lexema.
 				estados.push(tabeladetransicao[linha][coluna].getElemento());
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
 					// Esvazia a pilha.
 					while (!estados.isEmpty())
 						estados.pop();
-					// Volte o estado atual para inicial.
+					// Volte o estado atual para inicial do proximo lexema.
 					estados.push(tabeladetransicao[1][coluna].getElemento());
-					// Enviar o conteúdo do buffer para tabela de símbolos.
+					// Enviar o conteudo do buffer para tabela de simbolos.
 					// Falta essa parte aqui
 					// Apagar o conteúdo do buffer.
 					bffCaracter.delete(0, bffCaracter.length());
@@ -163,7 +162,7 @@ public class Main {
 					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
 
-				// Todo esse print é apenas para provar o funcionamento da pilha.
+				// Todo esse print e apenas para provar o funcionamento da pilha.
 				System.out.println(" - Caracter: " + (char) caracter + " - Dec: " + caracter + " - Estado atual: "
 						+ estados.peek() + " - Lexema atual: " + bffCaracter);
 
