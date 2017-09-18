@@ -11,35 +11,29 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int S[] = {128,  1,  0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34,129,123,126,130, 10, 32, 32, 46, 95,
-				   131, 19, 25,132, 11, 12, 13, 14,  4,  1, 26,  9, 10,  8, 15,132, 17,132,  3,131,131,131,132,132,
-				   	 1,  0,  0,  0,  0,  6,  0,  0,  7,  0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	 9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	10,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	11,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	13,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	14,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 15, 15, 15,132, 15, 15, 15, 15, 15,
-				   	16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18,132, 17, 17, 17, 17, 17,
-				   	18,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	19, 19,  0, 22,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 20,  0,
-				   	20, 21,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				   	21, 21,  0, 22,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	22, 24,132,132, 23, 23,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				   	23, 24,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				   	24, 24,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	25, 25,  25,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25,
-				   	26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-				   	132,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0}; 
+		int S[] = { 128, 1, 0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34, 129, 123, 126, 130, 10, 32, 32, 46, 95,
+				131, 19, 25, 132, 11, 12, 13, 14, 4, 1, 26, 9, 10, 8, 15, 132, 17, 132, 3, 131, 131, 131, 132, 132, 1,
+				0, 0, 0, 0, 6, 0, 0, 7, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+				15, 15, 15, 15, 0, 16, 15, 15, 15, 132, 15, 15, 15, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18,
+				132, 17, 17, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19,
+				19, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 20, 21, 132, 132, 132, 132, 132,
+				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 21, 21, 0, 22, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 24, 132, 132, 23, 23, 132, 132, 132, 132,
+				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 23, 24, 132, 132, 132, 132, 132,
+				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 24, 24, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 25, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 25, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		/*
 		 * Legenda da TABELA: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referÃªncia aos caracteres. A Tabela ASCII vai atÃ© 127, entÃ£o usei nÃºmeros
@@ -94,7 +88,15 @@ public class Main {
 		tabelahash.tabeladesimbolos.put("real", sim12);
 
 		// Aqui eu crio a tabela hash de erros
-		TabeladeErros tabelahasherros = new TabeladeErros();
+		TabeladeErros tabelahashe = new TabeladeErros();
+
+		// Preencho a Tabela de Erros
+		tabelahashe.tabeladeerros.put(131, "Identificador não permitido");
+		tabelahashe.tabeladeerros.put(15, "Constantes literais não permitidas");
+		tabelahashe.tabeladeerros.put(17, "Erro de foramatação de comentário (chaves)");
+		tabelahashe.tabeladeerros.put(20, "Constantes númericas não permitidas");
+		tabelahashe.tabeladeerros.put(22, "Constantes númericas não permitidas");
+		tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
 
 		try {
 			FileReader arquivo = new FileReader("C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
@@ -109,6 +111,21 @@ public class Main {
 
 			while ((caracter = lerArquivo.read()) != -1) {// Enquanto nÃo é o último caractere.
 
+				int test = 0;
+
+				// Quando não é um digito ou uma letra, procure a coluna do caracter.
+				for (int i = 0; i < 24; i++) {
+					if (tabeladetransicao[0][i].getElemento() == caracter) {
+						coluna = i;
+						test = 1;
+
+					}
+				}
+
+				if (test == 0) {
+					coluna = 19;
+				}
+
 				// Se o caracter estiver entre 48 e 57 é um digito. Portanto coluna dos digitos
 				if (caracter >= 48 && caracter <= 57)
 					coluna = 1;
@@ -118,54 +135,47 @@ public class Main {
 				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90))
 					coluna = 2;
 
-				// Quando não é um digito ou uma letra, procure a coluna do caracter.
-				else if(caracter != 10 && caracter != 13 && caracter != 32)
-					for (int i = 0; i < 24; i++)
-						if (tabeladetransicao[0][i].getElemento() == caracter)
-							coluna = i;
-
-				if (caracter != 10 && caracter != 13 && caracter != 32) {
-					// Procura na tabela a linha do estado atual
-					for (int i = 0; i < 29; i++)
-						// Se o estado atual for encontrado.
-						if (tabeladetransicao[i][0].getElemento() == estados.peek()) {
-							// Se o estado resultado não for o estado atual.
-							if (tabeladetransicao[i][coluna].getElemento() != estados.peek()) {
-								// Se o estado resultado é 0, apague a pilha e o buffer. Volte ao início.
-								if (tabeladetransicao[i][coluna].getElemento() == 0) {
-									// Esvazia a pilha.
-									while (!estados.isEmpty())
-										estados.pop();
-									// Volte o estado atual para inicial.
-									estados.push(tabeladetransicao[1][0].getElemento());
-									// Enviar o conteúdo do buffer para tabela de símbolos.
-									// Falta essa parte aqui
-									// Apagar o conteúdo do buffer.
-									bffCaracter.delete(0, bffCaracter.length());
-
-								}
-								// Senão atualize o estado atual.
-								else
-									estados.push(tabeladetransicao[i][coluna].getElemento());
-
-							}
-						}
-					
-					//Buffer de caracteres recebe o caractere atual. 
-            		bffCaracter.append((char)caracter);
-            		
-					// Todo esse print é apenas para provar o funcionamento da pilha.
-					System.out.println(" - Caracter: " + (char) caracter + " - Dec: " + caracter + " - Estado atual: "
-							+ estados.peek() + " - Lexema atual: " + bffCaracter);
-					
-					s.nextLine();// Para iterar na leitura do arquivo.
+				// Procura na tabela a linha do estado atual
+				for (int i = 0; i < 29; i++) {
+					// Se o estado atual for encontrado.
+					if (tabeladetransicao[i][0].getElemento() == estados.peek()) {
+						linha = i;
+					}
 				}
+
+				// Se o estado resultado é 0, apague a pilha e o buffer. Vá para o estado
+				// inicial do proximo lexema.
+				estados.push(tabeladetransicao[linha][coluna].getElemento());
+				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
+					// Esvazia a pilha.
+					while (!estados.isEmpty())
+						estados.pop();
+					// Volte o estado atual para inicial.
+					estados.push(tabeladetransicao[1][coluna].getElemento());
+					// Enviar o conteúdo do buffer para tabela de símbolos.
+					// Falta essa parte aqui
+					// Apagar o conteúdo do buffer.
+					bffCaracter.delete(0, bffCaracter.length());
+
+				}
+
+				if (caracter != 10 && caracter != 13 && caracter != 32)
+					// Buffer de caracteres recebe o caractere atual.
+					bffCaracter.append((char) caracter);
+
+				// Todo esse print é apenas para provar o funcionamento da pilha.
+				System.out.println(" - Caracter: " + (char) caracter + " - Dec: " + caracter + " - Estado atual: "
+						+ estados.peek() + " - Lexema atual: " + bffCaracter);
+
+				s.nextLine();// Para iterar na leitura do arquivo.
 			}
 
 			s.close();
 			arquivo.close();
 
-		} catch (IOException e) {
+		} catch (
+
+		IOException e) {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 
