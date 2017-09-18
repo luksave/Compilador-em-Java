@@ -37,10 +37,10 @@ public class Main {
 		/*
 		 * Legenda da TABELA: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referencia aos caracteres. A Tabela ASCII vai ate 127, entao usei nÃumeros
-		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela,
-		 * tinha que colocar um numero peguei o 128; 129 representa qualquer digito
-		 * diferente dos referenciados nas colunas; 130 representa EOF; 131 representa a
-		 * linha do estado inicial; 132 representa a linha dos erros
+		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela, tinha
+		 * que colocar um numero peguei o 128; 129 representa qualquer digito diferente
+		 * dos referenciados nas colunas; 130 representa EOF; 131 representa a linha do
+		 * estado inicial; 132 representa a linha dos erros
 		 */
 
 		// Aqui eu crio a pilha dos estados da tabela de transição
@@ -142,22 +142,210 @@ public class Main {
 					}
 				}
 
+				estados.push(tabeladetransicao[linha][coluna].getElemento());
 				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
 				// inicial do proximo lexema.
-				estados.push(tabeladetransicao[linha][coluna].getElemento());
+
+				System.out.println("Estado atual: " + estados.peek());
+
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
+
+					// Verifico se o lexema já esta na Tabela de Simbolos
+
+					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
+					if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
+						System.out.println("Lexema: "
+								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getLexema() + "\nToken: "
+								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getToken() + "\nTipo: "
+								+ tabelahash.tabeladesimbolos.get(bffCaracter.toString()).getTipo() + "\n");
+
+						// Se nao, vejo qual o estado de aceitacao que o lexema parou e adiciono na
+						// Tabela de Simbolos
+					} else {
+						Simbolo simaux;
+						estados.pop();
+						switch (estados.peek()) {
+						case 1:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+
+							break;
+						case 2:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 3:
+							simaux = new Simbolo(" ", "EOF", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 4:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 5:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 6:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 7:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 8:
+							simaux = new Simbolo(bffCaracter.toString(), "PT_V", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 9:
+							simaux = new Simbolo(bffCaracter.toString(), "AB_P", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 10:
+							simaux = new Simbolo(bffCaracter.toString(), "FC_P", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 11:
+							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 12:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 13:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 14:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 26:
+							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 16:
+							simaux = new Simbolo(bffCaracter.toString(), "Literal", "literal");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 19:
+							simaux = new Simbolo(bffCaracter.toString(), "Num", "inteiro");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 21:
+							simaux = new Simbolo(bffCaracter.toString(), "Num", "real");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 24:
+							simaux = new Simbolo(bffCaracter.toString(), "Num", " ");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						case 25:
+							simaux = new Simbolo(bffCaracter.toString(), "id", "Identificador");
+							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println("Lexema: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getLexema() + "\nToken: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getToken() + "\nTipo: "
+									+ tabelahash.tabeladesimbolos.get(simaux.getLexema()).getTipo() + "\n");
+							break;
+						default:
+							System.out.println("Erro na leitura da pilha de Estados.\n");
+						}
+
+					}
 					// Esvazia a pilha.
 					while (!estados.isEmpty())
 						estados.pop();
 					// Volte o estado atual para inicial do proximo lexema.
 					estados.push(tabeladetransicao[1][coluna].getElemento());
-					// Enviar o conteudo do buffer para tabela de simbolos.
-					// Falta essa parte aqui
 					// Apagar o conteúdo do buffer.
 					bffCaracter.delete(0, bffCaracter.length());
 
 				}
-
+				
+				// Verificando erros
+				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
+					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
+				}
+				
 				if (caracter != 10 && caracter != 13 && caracter != 32)
 					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
