@@ -9,6 +9,7 @@ import java.util.Stack;
 import java.util.Scanner;
 
 import dados.*;
+import analisadores.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -17,8 +18,9 @@ public class Main {
 		
 		Simbolo parada = Lexico.getLex(0);		//Simbolos são os lexemas que são retornados.
 		Scanner s = new Scanner(System.in);		//Scanner para iterar sobre o retorno dos lexemas.
+	
 		
-		while(parada != null) {					//Enquanto não é o ultimo lexema ou nao houver erros na abertura do arquivo.
+		do {	//Enquanto não é o ultimo lexema ou nao houver erros na abertura do arquivo.
 			System.out.println
 				("Lexema: "+parada.getLexema()+	//Imprime o Lexema.
 				 "\nToken: "+parada.getToken()+		//Imprime o Token.
@@ -29,7 +31,7 @@ public class Main {
 			
 			parada = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
 			
-		}
+		}while(parada != null);
 		
 		s.close();	//Fechar Scanner.
 			
