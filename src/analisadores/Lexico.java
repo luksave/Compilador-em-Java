@@ -18,12 +18,15 @@ public class Lexico {
 	public static int pos; // Devera conter a posicao em que a leitura esta no momento.
 
 	static BufferedReader lerArquivo; // Buffer para leitura de arquivo.
-
+	
+	
 	public static Simbolo getLex(int posi) { // Funcao que le o arquivo, acha Lexemas, insere lexemas na tabela e
 												// retorna lexemas.
 
 		pos = posi; // A posicao atual da leitura eh atualizada.
 
+		long tam;
+		
 		// TODO Auto-generated method stub
 
 		int S[] = { 128, 1, 0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34, 129, 123, 126, 130, 10, 32, 32, 46, 95,
@@ -115,7 +118,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.
 			
@@ -125,13 +128,16 @@ public class Lexico {
 			lerArquivo = new BufferedReader(new InputStreamReader(stream, "UTF-8")); // A leitura do arquivo stream no
 																						// formato UTF-8.
 			
+			tam = stream.getChannel().size();
+			
 			
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
 
 			int erro = 0; // Variavel que averigua erro na leitura da pilha de estados.
 
-			while ((caracter = lerArquivo.read()) != -1) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+			while (pos <= tam) {// Enquanto nao e o ultimo caracter e nao tiver erros.
 
+				caracter = lerArquivo.read();
 				
 				if (erro == 1) {
 					System.out.println("Erro na leitura da pilha de Estados.\n");
@@ -173,8 +179,6 @@ public class Lexico {
 				estados.push(tabeladetransicao[linha][coluna].getElemento());
 				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
 				// inicial do proximo lexema.
-				
-				System.out.println("Estado topo da pilha: "+estados.peek()+"\nBuffer: "+bffCaracter);
 				
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
 					
