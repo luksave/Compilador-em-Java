@@ -16,6 +16,7 @@ public class Lexico {
 	// pela main.
 
 	public static int pos; // Devera conter a posicao em que a leitura esta no momento.
+	public static int linhaerro = 1, colunaerro = 0; // contem a linha e coluna que o arquivo ja leu
 
 	static BufferedReader lerArquivo; // Buffer para leitura de arquivo.
 	
@@ -29,8 +30,8 @@ public class Lexico {
 		
 		// TODO Auto-generated method stub
 
-		int S[] = { 128, 1, 0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34, 129, 123, 126, 130, 10, 32, 32, 46, 95,
-				131, 19, 25, 132, 11, 12, 13, 14, 4, 1, 26, 9, 10, 8, 15, 132, 17, 132, 3, 131, 131, 131, 132, 132, 1,
+		int S[] = { 128, 1, 0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34,129,123,126,130, 10, 32, 32, 46, 95,
+					131,19,25,132, 11, 12, 13, 14,  4,  1, 26,  9, 10,  8, 15,132, 17,132,  3,131,131,131,132,132, 1,
 				0, 0, 0, 0, 6, 0, 0, 7, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -118,7 +119,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.
 			
@@ -135,7 +136,7 @@ public class Lexico {
 
 			int erro = 0; // Variavel que averigua erro na leitura da pilha de estados.
 
-			while (pos <= tam) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+			while (pos <= tam || erro == 1) {// Enquanto nao e o ultimo caracter e nao tiver erros.
 
 				caracter = lerArquivo.read();
 				
@@ -143,6 +144,8 @@ public class Lexico {
 					System.out.println("Erro na leitura da pilha de Estados.\n");
 					return null;
 				}
+				
+				
 
 				int test = 0;
 
@@ -155,18 +158,14 @@ public class Lexico {
 					}
 				}
 
-				if (test == 0) {
-					coluna = 19;
-				}
+				if (test == 0) coluna = 19;
 
 				// Se o caracter estiver entre 48 e 57 e um digito. Portanto coluna dos digitos
-				if (caracter >= 48 && caracter <= 57)
-					coluna = 1;
+				if (caracter >= 48 && caracter <= 57) coluna = 1;
 
 				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 eh uma Letra. Portanto
 				// coluna das letras
-				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90))
-					coluna = 2;
+				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90)) coluna = 2;
 
 				// Procura na tabela a linha do estado atual
 				for (int i = 0; i < 29; i++) {
@@ -175,8 +174,10 @@ public class Lexico {
 						linha = i;
 					}
 				}
-
+				
+				//Coloco o estado na pilha
 				estados.push(tabeladetransicao[linha][coluna].getElemento());
+				
 				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
 				// inicial do proximo lexema.
 				
@@ -208,8 +209,12 @@ public class Lexico {
 							return simaux;
 
 						case 3:
-							simaux = new Simbolo(" ", "EOF", " ");
+							simaux = new Simbolo("EOF", "EOF", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							System.out.println
+							("Lexema: "+simaux.getLexema()+	//Imprime o Lexema.
+							 "\nToken: "+simaux.getToken()+		//Imprime o Token.
+							 "\nTipo: "+simaux.getTipo());		//Imprime o Tipo.
 							return simaux;
 
 						case 4:
@@ -299,6 +304,7 @@ public class Lexico {
 
 						default:
 							System.out.println("Erro na leitura da pilha!!");
+							System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 							erro = 1;
 
 						}
@@ -317,6 +323,7 @@ public class Lexico {
 				// Verificando erros
 				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
 					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
+					System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 					erro = 1;
 				}
 
@@ -324,6 +331,15 @@ public class Lexico {
 					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
 				pos++; // Toda vez que um caracter eh lido, a posicao eh incrementada.
+				
+				//verifica se ele encontrou um pula linha, se sim incrementa a linha
+				if (caracter == 13) linhaerro++; 
+				System.out.println("Linha: "+linhaerro);
+				
+				//verifica se ele leu toda a linha, se sim zera a coluna senao ele incrementa
+				if(estados.peek()==131 && caracter == 13) {colunaerro = 0;}
+				else {colunaerro++;}
+				System.out.println("Coluna: "+colunaerro);
 
 			}
 
