@@ -134,7 +134,7 @@ public class Lexico {
 			stream.getChannel().position(pos); // Seta a posicao na qual o arquivo stream deve comecar.
 
 			lerArquivo = new BufferedReader(new InputStreamReader(stream, "UTF-8")); // A leitura do arquivo stream no
-																						// formato UTF-8.
+																					 // formato UTF-8.
 			
 			tam = stream.getChannel().size();
 			
@@ -146,8 +146,6 @@ public class Lexico {
 				if(erro == 1) return null;
 
 				caracter = lerArquivo.read();	
-				
-				System.out.println("\nCaracter: "+caracter+" "+(char)caracter);
 
 				int test = 0;
 
@@ -159,12 +157,18 @@ public class Lexico {
 
 					}
 				}
-
+				
+				//Se eu n encontro a coluna correspondente ao caracter, quer dizer que esse cararcter
+				//eh de outro tipo que nao se encontra na tabela de transicao
+				//logo coloco ele na coluna correspondente a "restante dos caracteres"
 				if (test == 0 && caracter != 10 && caracter != 13 && caracter != 32) coluna = 17;
 				
-				if (test == 0 && caracter == 10 && caracter == 13 && caracter == 32 && caracter == -1) coluna = 19;
+				//Verifico se o caracter eh espaço, tabulacao ou pula linha
+				if (test == 0 && (caracter == 10 || caracter == 13 || caracter == 32) && caracter == -1) coluna = 19;
 				
+				//Verifico se eh EOF
 				if(caracter == -1) coluna = 18;
+				
 				// Se eh digito
 				if (Character.isDigit((char)caracter)) coluna = 1;
 
@@ -354,10 +358,8 @@ public class Lexico {
 		IOException e) {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
-		
-		Simbolo simeof = new Simbolo("EOF", "EOF", " ");
-		tabelahash.tabeladesimbolos.put(simeof.getLexema(), simeof);
-		return simeof;
+
+		return null;
 
 	}
 
