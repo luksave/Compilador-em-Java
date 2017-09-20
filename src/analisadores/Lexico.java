@@ -17,6 +17,7 @@ public class Lexico {
 
 	public static int pos; // Devera conter a posicao em que a leitura esta no momento.
 	public static int linhaerro = 1, colunaerro = 0; // contem a linha e coluna que o arquivo ja leu
+	public static int erro = 0;
 
 	static BufferedReader lerArquivo; // Buffer para leitura de arquivo.
 	
@@ -30,29 +31,35 @@ public class Lexico {
 		
 		// TODO Auto-generated method stub
 
-		int S[] = { 128, 1, 0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34,129,123,126,130, 10, 32, 32, 46, 95,
-					131,19,25,132, 11, 12, 13, 14,  4,  1, 26,  9, 10,  8, 15,132, 17,132,  3,131,131,131,132,132, 1,
-				0, 0, 0, 0, 6, 0, 0, 7, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-				15, 15, 15, 15, 0, 16, 15, 15, 15, 132, 15, 15, 15, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18,
-				132, 17, 17, 17, 17, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 19,
-				19, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 20, 21, 132, 132, 132, 132, 132,
-				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 21, 21, 0, 22, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 24, 132, 132, 23, 23, 132, 132, 132, 132,
-				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 23, 24, 132, 132, 132, 132, 132,
-				132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132, 24, 24, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 25, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 25, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int S[] = { 128,  1,  0, 69, 43, 45, 42, 47, 62, 60, 61, 40, 41, 59, 34,129,123,126,130, 10, 32, 32, 46, 95,
+					131, 19, 25,132, 11, 12, 13, 14,  4,  1, 26,  9, 10,  8, 15,132, 17,132,  3,131,131,131,132,132, 
+					  1,  0,  0,  0,  0,  6,  0,  0,  7,  0,  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  7,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 10,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 11,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 13,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 14,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  0, 16, 15, 15, 15,132, 15, 15, 15, 15, 15, 
+				  	 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18,132, 17, 17, 17, 17, 17, 
+					 18,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 19, 19,  0, 22,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 20,  0, 
+					 20, 21,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132, 
+					 21, 21,  0, 22,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 22, 24,132,132, 23, 23,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132, 
+					 23, 24,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132, 
+					 24, 24,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					 25, 25, 25,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25, 
+					 26,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+					132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132};
 		/*
 		 * Legenda da TABELA: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referencia aos caracteres. A Tabela ASCII vai ate 127, entao usei nÃumeros
@@ -109,12 +116,12 @@ public class Lexico {
 		TabeladeErros tabelahashe = new TabeladeErros();
 
 		// Preencho a Tabela de Erros
-		tabelahashe.tabeladeerros.put(131, "Identificador não permitido");
-		tabelahashe.tabeladeerros.put(15, "Constantes literais não permitidas");
-		tabelahashe.tabeladeerros.put(17, "Erro de foramatação de comentário (chaves)");
-		tabelahashe.tabeladeerros.put(20, "Constantes númericas não permitidas");
+		tabelahashe.tabeladeerros.put(1, "Identificador não permitido");
+		tabelahashe.tabeladeerros.put(14, "Constantes literais não permitidas");
+		tabelahashe.tabeladeerros.put(16, "Erro de foramatação de comentário (chaves)");
+		tabelahashe.tabeladeerros.put(19, "Constantes númericas não permitidas");
+		tabelahashe.tabeladeerros.put(21, "Constantes númericas não permitidas");
 		tabelahashe.tabeladeerros.put(22, "Constantes númericas não permitidas");
-		tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
 
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
@@ -134,18 +141,13 @@ public class Lexico {
 			
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
 
-			int erro = 0; // Variavel que averigua erro na leitura da pilha de estados.
+			while (pos <= tam || erro == 0) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+				
+				if(erro == 1) return null;
 
-			while (pos <= tam || erro == 1) {// Enquanto nao e o ultimo caracter e nao tiver erros.
-
-				caracter = lerArquivo.read();
+				caracter = lerArquivo.read();	
 				
-				if (erro == 1) {
-					System.out.println("Erro na leitura da pilha de Estados.\n");
-					return null;
-				}
-				
-				
+				System.out.println("\nCaracter: "+caracter+" "+(char)caracter);
 
 				int test = 0;
 
@@ -158,14 +160,16 @@ public class Lexico {
 					}
 				}
 
-				if (test == 0) coluna = 19;
+				if (test == 0 && caracter != 10 && caracter != 13 && caracter != 32) coluna = 17;
+				
+				if (test == 0 && caracter == 10 && caracter == 13 && caracter == 32 && caracter == -1) coluna = 19;
+				
+				if(caracter == -1) coluna = 18;
+				// Se eh digito
+				if (Character.isDigit((char)caracter)) coluna = 1;
 
-				// Se o caracter estiver entre 48 e 57 e um digito. Portanto coluna dos digitos
-				if (caracter >= 48 && caracter <= 57) coluna = 1;
-
-				// Se o caracter estiver entre 97 e 122 ou entre 65 e 90 eh uma Letra. Portanto
-				// coluna das letras
-				if ((caracter >= 97 && caracter <= 122) || (caracter >= 65 && caracter <= 90)) coluna = 2;
+				// Se eh letra
+				if (Character.isLetter((char)caracter)) coluna = 2;
 
 				// Procura na tabela a linha do estado atual
 				for (int i = 0; i < 29; i++) {
@@ -178,22 +182,20 @@ public class Lexico {
 				//Coloco o estado na pilha
 				estados.push(tabeladetransicao[linha][coluna].getElemento());
 				
-				// Se o estado resultado e 0, apague a pilha e o buffer. Va para o estado
-				// inicial do proximo lexema.
-				
+				// Se o estado resultado e 0, desempilha a pilha toda e apaga o buffer de caracteres. 
+				// Va para o estado inicial do proximo lexema.
+		
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
-					
-					
+										
 					// Verifico se o lexema já esta na Tabela de Simbolos
-					
 					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
 					if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
 						Simbolo aux;
 						aux = tabelahash.tabeladesimbolos.get(bffCaracter.toString());
 						return aux;
 
-						// Se nao, vejo qual o estado de aceitacao que o lexema parou, adiciono na
-						// Tabela de Simbolos e retorno o Token*/
+					// Se nao, vejo qual o estado de aceitacao que o lexema parou, adiciono na
+					// Tabela de Simbolos e retorno o Token*/
 					} else {
 						Simbolo simaux;
 						estados.pop();
@@ -211,10 +213,6 @@ public class Lexico {
 						case 3:
 							simaux = new Simbolo("EOF", "EOF", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
-							System.out.println
-							("Lexema: "+simaux.getLexema()+	//Imprime o Lexema.
-							 "\nToken: "+simaux.getToken()+		//Imprime o Token.
-							 "\nTipo: "+simaux.getTipo());		//Imprime o Tipo.
 							return simaux;
 
 						case 4:
@@ -258,22 +256,22 @@ public class Lexico {
 							return simaux;
 
 						case 12:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 13:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 14:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 26:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
 							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
@@ -305,16 +303,18 @@ public class Lexico {
 						default:
 							System.out.println("Erro na leitura da pilha!!");
 							System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
-							erro = 1;
-
+							erro = 1;							
 						}
 
 					}
+					
 					// Esvazia a pilha.
 					while (!estados.isEmpty())
 						estados.pop();
+					
 					// Volte o estado atual para inicial do proximo lexema.
 					estados.push(tabeladetransicao[1][coluna].getElemento());
+					
 					// Apagar o conteúdo do buffer.
 					bffCaracter.delete(0, bffCaracter.length());
 
@@ -326,20 +326,23 @@ public class Lexico {
 					System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 					erro = 1;
 				}
-
+				
+				// Buffer de caracteres recebe o caractere atual.
 				if (caracter != 10 && caracter != 13 && caracter != 32)
-					// Buffer de caracteres recebe o caractere atual.
 					bffCaracter.append((char) caracter);
+				
 				pos++; // Toda vez que um caracter eh lido, a posicao eh incrementada.
 				
-				//verifica se ele encontrou um pula linha, se sim incrementa a linha
-				if (caracter == 13) linhaerro++; 
-				System.out.println("Linha: "+linhaerro);
+				//verifica se ele encontrou um pula linha, se sim incrementa o contador de linha e zera
+				//o contador de coluna
+				//Se nao incrementa o contador de coluna
+				if (caracter == 13) {
+					linhaerro++; 
+					colunaerro=0;
+				}else {
+					colunaerro++;
+				}
 				
-				//verifica se ele leu toda a linha, se sim zera a coluna senao ele incrementa
-				if(estados.peek()==131 && caracter == 13) {colunaerro = 0;}
-				else {colunaerro++;}
-				System.out.println("Coluna: "+colunaerro);
 
 			}
 
@@ -352,7 +355,9 @@ public class Lexico {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 		
-		return null;
+		Simbolo simeof = new Simbolo("EOF", "EOF", " ");
+		tabelahash.tabeladesimbolos.put(simeof.getLexema(), simeof);
+		return simeof;
 
 	}
 
