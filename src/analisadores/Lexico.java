@@ -328,6 +328,7 @@ public class Lexico {
 				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
 					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
 					System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
+					colunaerro--;
 					erro = 1;
 				}
 				
