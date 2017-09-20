@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 import dados.*;
@@ -23,7 +22,7 @@ public class Main {
 			
 			simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
 			
-			if(simbolo.getToken().equals("EOF")) aux=1;
+			if(simbolo.getToken().equals("EOF") || simbolo == null) aux=1;
 			
 		}while(aux==0);
 		

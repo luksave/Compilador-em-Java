@@ -5,7 +5,7 @@ inicio
       c inteiro;
    varfim;
 
-   escreva "Digite um nome:";
+   escreva "Digite um nomero:";
    leia A;
 
    escreva "Digite um numero:";
