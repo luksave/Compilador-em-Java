@@ -26,10 +26,12 @@ public class Main {
 			
 		}while(aux==0);
 		
+		if(!(simbolo.getToken().equals("ERRO"))){
 		System.out.println
 		("Lexema: "+simbolo.getLexema()+	//Imprime o Lexema.
 		 "\nToken: "+simbolo.getToken()+	//Imprime o Token.
 		 "\nTipo: "+simbolo.getTipo());	//Imprime o Tipo.
+		}
 		
 		s.close();	//Fechar Scanner.
 			
