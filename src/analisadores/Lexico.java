@@ -46,7 +46,7 @@ public class Lexico {
 					 12,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
 					 13,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
 					 14,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-					 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,132, 16, 15, 15, 15,132, 15, 15, 15, 15, 15, 
+					 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 16, 132, 15, 15,132, 15, 15, 15, 15, 15, 
 				  	 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
 					 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17,132, 17, 17, 17, 18,132, 17, 17, 17, 17, 17, 
 					 18,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
@@ -125,7 +125,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
@@ -203,82 +203,66 @@ public class Lexico {
 						switch (estados.peek()) {
 						case 1:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 2:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 3:
 							simaux = new Simbolo("EOF", "EOF", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 4:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 5:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 6:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 7:
 							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 8:
 							simaux = new Simbolo(bffCaracter.toString(), "PT_V", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 9:
 							simaux = new Simbolo(bffCaracter.toString(), "AB_P", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 10:
 							simaux = new Simbolo(bffCaracter.toString(), "FC_P", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 11:
 							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 12:
 							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 13:
 							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 14:
 							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 26:
 							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 16:
 							simaux = new Simbolo(bffCaracter.toString(), "Literal", "literal");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;		
 						
 						case 18:
@@ -286,17 +270,14 @@ public class Lexico {
 
 						case 19:
 							simaux = new Simbolo(bffCaracter.toString(), "Num", "inteiro");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 21:
 							simaux = new Simbolo(bffCaracter.toString(), "Num", "real");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 24:
 							simaux = new Simbolo(bffCaracter.toString(), "Num", "real");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						case 25:
