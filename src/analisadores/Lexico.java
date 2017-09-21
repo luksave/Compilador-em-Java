@@ -21,10 +21,6 @@ public class Lexico {
 
 	static BufferedReader lerArquivo; // Buffer para leitura de arquivo.
 	
-	public int getErro(){
-		return erro;
-	}
-	
 	public static Simbolo getLex(int posi) { // Funcao que le o arquivo, acha Lexemas, insere lexemas na tabela e
 												// retorna lexemas.
 
@@ -144,7 +140,12 @@ public class Lexico {
 			
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
 
-			while (pos <= tam) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+			while (pos <= tam || erro == 0) {// Enquanto nao e o ultimo caracter e nao tiver erros.
+				
+				if (erro == 1) {
+					Simbolo simerro = new Simbolo ("ERRO","ERRO"," ");
+					return simerro;
+				}
 					
 				caracter = lerArquivo.read();	
 
@@ -315,6 +316,7 @@ public class Lexico {
 							System.out.println("Erro na leitura da pilha ou formato de comentario errado!");
 							System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 							erro = 1;							
+													
 						}
 
 					}
@@ -335,11 +337,11 @@ public class Lexico {
 				// Verificando erros
 				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
 					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
-					colunaerro--;
 					System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 					
 					erro = 1;
-					return null;
+					Simbolo simerro = new Simbolo ("ERRO","ERRO"," ");
+					return simerro;
 				}
 				
 				// Buffer de caracteres recebe o caractere atual.
