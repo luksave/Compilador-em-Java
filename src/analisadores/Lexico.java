@@ -127,31 +127,23 @@ public class Lexico {
 			FileInputStream stream = new FileInputStream(
 					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
 
-			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.
-			
+			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
 			stream.getChannel().position(pos); // Seta a posicao na qual o arquivo stream deve comecar.
 
-			lerArquivo = new BufferedReader(new InputStreamReader(stream, "UTF-8")); // A leitura do arquivo stream no
-																					 // formato UTF-8.
+			lerArquivo = new BufferedReader(new InputStreamReader(stream, "UTF-8")); // A leitura do arquivo stream no																				 // formato UTF-8.
 			
 			tam = stream.getChannel().size();
-			
-			
+						
 			estados.push(tabeladetransicao[linha][coluna].getElemento());// Coloca o estado inicial na pilha.
 
 			while (pos <= tam || erro == 0) {// Enquanto nao e o ultimo caracter e nao tiver erros.
-				
-				if (erro == 1) {
-					Simbolo simerro = new Simbolo ("ERRO","ERRO"," ");
-					return simerro;
-				}
 					
 				caracter = lerArquivo.read();	
 
-				int test = 0;
-				
 				/*--------------------- COLOCANDO A COLUNA CORRESPONDENTE AO CARACTER-------------------------------*/
+				int test = 0;
+							
 				// Quando nao e um digito ou uma letra, procure a coluna do caracter.
 				for (int i = 0; i < 24; i++) {
 					if (tabeladetransicao[0][i].getElemento() == caracter) {
@@ -166,7 +158,7 @@ public class Lexico {
 				if (test == 0 && caracter != 10 && caracter != 13 && caracter != 32) coluna = 17;
 				
 				//Verifico se o caracter eh espaço, tabulacao ou pula linha
-				if (test == 0 && (caracter == 10 || caracter == 13 || caracter == 32) && caracter == -1) coluna = 19;
+				if (test == 0 && (caracter == 10 || caracter == 13 || caracter == 32)) coluna = 19;
 				
 				//Verifico se eh EOF
 				if(caracter == -1) coluna = 18;
