@@ -3,5 +3,5 @@ Compilador implementado na linguagem Java.
 
 DESENVOLVIMENTO DE UM COMPILADOR
 
-- Linguagem MPGol 
-- Linguagem C
+- Linguagem MDPgol (Programa Fonte)
+- Linguagem C (Programa Objeto)
