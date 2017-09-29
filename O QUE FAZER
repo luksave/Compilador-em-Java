@@ -1,0 +1,10 @@
+O QUE FAZER:
+
+PACOTE analisadores
+  - CLASSE Sintática
+  
+PACOTE dados
+  - CLASSE EnumeracaoDaGramatica
+  
+PACOTE tabelas
+  - CLASSE TabelaSintatica
