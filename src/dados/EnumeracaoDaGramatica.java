@@ -5,7 +5,7 @@ public class EnumeracaoDaGramatica {
 	private int enumeracao;
 	private String sentenca;
 	
-	EnumeracaoDaGramatica(int enumeracao, String sentenca){
+	public EnumeracaoDaGramatica(int enumeracao, String sentenca){
 		this.enumeracao = enumeracao;
 		this.sentenca = sentenca;
 	}
