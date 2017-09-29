@@ -13,11 +13,12 @@ public class Main {
 		
 		do {	//Enquanto não é o ultimo lexema ou nao houver erros na abertura do arquivo.
 			
-			System.out.println
+				System.out.println
 				("Lexema: "+simbolo.getLexema()+	//Imprime o Lexema.
 				 "\nToken: "+simbolo.getToken()+	//Imprime o Token.
 				 "\nTipo: "+simbolo.getTipo());	//Imprime o Tipo.
-
+			
+			
 			s.nextLine();	//Ir para proximo.
 			
 			simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
