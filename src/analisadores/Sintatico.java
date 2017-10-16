@@ -2,42 +2,143 @@ package analisadores;
 
 import tabelas.*;
 import dados.*;
+import java.util.Stack;
+
 
 public class Sintatico {
 	
-	public String getSentenca(String token) {
-		EnumeracaoDaGramatica enum1 = new EnumeracaoDaGramatica(1,"P' -> P");
-		EnumeracaoDaGramatica enum2 = new EnumeracaoDaGramatica(2,"P -> inicio V A");
-		EnumeracaoDaGramatica enum3 = new EnumeracaoDaGramatica(3,"V -> varinicio LV");
-		EnumeracaoDaGramatica enum4 = new EnumeracaoDaGramatica(4,"LV -> D LV");
-		EnumeracaoDaGramatica enum5 = new EnumeracaoDaGramatica(5,"LV -> varfim;");
-		EnumeracaoDaGramatica enum6 = new EnumeracaoDaGramatica(6,"D -> id TIPO;");
-		EnumeracaoDaGramatica enum7 = new EnumeracaoDaGramatica(7,"TIPO -> int");
-		EnumeracaoDaGramatica enum8 = new EnumeracaoDaGramatica(8,"TIPO -> real");
-		EnumeracaoDaGramatica enum9 = new EnumeracaoDaGramatica(9,"TIPO -> lit");
-		EnumeracaoDaGramatica enum10 = new EnumeracaoDaGramatica(10,"A -> ES A");
-		EnumeracaoDaGramatica enum11 = new EnumeracaoDaGramatica(11,"ES -> leia id;");
-		EnumeracaoDaGramatica enum12 = new EnumeracaoDaGramatica(12,"ES -> escreva ARG;");
-		EnumeracaoDaGramatica enum13 = new EnumeracaoDaGramatica(13,"ARG -> literal");
-		EnumeracaoDaGramatica enum14 = new EnumeracaoDaGramatica(14,"ARG -> num");
-		EnumeracaoDaGramatica enum15 = new EnumeracaoDaGramatica(15,"ARG -> id");
-		EnumeracaoDaGramatica enum16 = new EnumeracaoDaGramatica(16,"A -> CMD A");
-		EnumeracaoDaGramatica enum17 = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD;");
-		EnumeracaoDaGramatica enum18 = new EnumeracaoDaGramatica(18,"LD -> OPRD opm OPRD");
-		EnumeracaoDaGramatica enum19 = new EnumeracaoDaGramatica(19,"LD -> OPRD");
-		EnumeracaoDaGramatica enum20 = new EnumeracaoDaGramatica(20,"OPRD -> id");
-		EnumeracaoDaGramatica enum21 = new EnumeracaoDaGramatica(21,"OPRD -> num");
-		EnumeracaoDaGramatica enum22 = new EnumeracaoDaGramatica(22,"A -> COND A");
-		EnumeracaoDaGramatica enum23 = new EnumeracaoDaGramatica(23,"COND -> CABEÇALHO CORPO");
-		EnumeracaoDaGramatica enum24 = new EnumeracaoDaGramatica(24,"CABEÇALHO -> se (EXP_R) então");
-		EnumeracaoDaGramatica enum25 = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
-		EnumeracaoDaGramatica enum26 = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
-		EnumeracaoDaGramatica enum27 = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
-		EnumeracaoDaGramatica enum28 = new EnumeracaoDaGramatica(28,"CORPO -> COND CORP");
-		EnumeracaoDaGramatica enum39 = new EnumeracaoDaGramatica(29,"CORPO -> fimse");
-		EnumeracaoDaGramatica enum30 = new EnumeracaoDaGramatica(29,"A -> fim");
-		String a = "Oi";
-		return a;
+	public String analisadorSintatico() {
+		
+		//Pilha de estados do analisador sintático.
+		Stack<Integer> estados = new Stack<Integer>();
+		
+		//Para navegar nas tabelas:
+		int state;
+
+		//O primeiro símbolo do buffer.
+		Simbolo simbolo = Lexico.getLex(0);		//simbolos são os lexemas que são retornados.
+		
+		//O primeiro estado na pilha.
+		estados.push(0);
+		
+		while(true) {
+			
+			//Encontre o estado no topo da pilha.
+			state = estados.peek();
+			
+			//Se haverá empilhamento:
+				//Pela regra definida na tabela ACTION, se o numero é maior que 0, indica empilhamento.
+				//Confira também se não é o estado de aceitação.
+			if((getACTION(state, simbolo.getLexema()) > 0) && (getACTION(state, simbolo.getLexema()) != 151)) { 
+				estados.push(getACTION(state, simbolo.getLexema()));
+				simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
+				
+			}
+			
+			//Se haverá redução:
+				//Pela regra definida na tabela ACTION, se o numero é menor que 0, indica empilhamento.
+				//Se o numero for 0 é um falso empilhamento. O tratamento é feito aqui????
+			else if(getACTION(state, simbolo.getLexema()) <= 0) {
+				//Para voltar ao numero verdadeiro da produção a ser reduzida.
+				int reduce = getACTION(state, simbolo.getLexema()) * (-1);
+	
+				//Encontra a sentença que está sendo reduzida.
+				String sentenca = getSentenca(reduce);
+				
+				//Para encontrar a quantidade de símbolos de Beta.
+				int qtdSimbolosBeta = 0;
+				boolean isBeta = false;
+				
+				//Para guarda qual o não terminal.
+				StringBuilder nonterminal = new StringBuilder();
+				
+				//Recupera a quantidade de simbolos Beta.
+				for(int i = 0; i < sentenca.length(); i++) {
+					//Só passa a considerar palavras após ->.
+					if(sentenca.charAt(i) == '-' && sentenca.charAt(i + 1) == '>')
+						isBeta = true;
+				
+					if(sentenca.charAt(i) == ' ' && isBeta == true)
+						qtdSimbolosBeta++;
+				
+				}
+				
+				int j = 0;
+				//Para recuperar o não-terminal
+				while(sentenca.charAt(j) != ' ') {
+					nonterminal.append(sentenca.charAt(j));
+					j++;
+				}
+				
+				//Desempilha qtdSimbolosBeta de estados.
+				for(int i = 0; i <= qtdSimbolosBeta; i++) 
+					estados.pop();
+				
+				//Faça o estado t ser o topo da pilha.
+				state = estados.peek();
+				
+				//Empilhe GOTO[t, A].
+				estados.push(getGOTO(state, nonterminal.toString()));
+
+				//Imprima a produção A -> B.
+				System.out.println("Sentença reduzida:"+sentenca);
+				return sentenca;
+			}
+			
+			//Se há aceitação
+			else if(getACTION(state, simbolo.getLexema()) == 151) {
+				System.out.println("Aceitação");
+				return "Aceitação";
+			}
+			
+			//Senão, há erro.
+			else{
+				//Mostre o erro.
+				System.out.println("Chame uma rotina de tratamento de erro");
+				return "Erro";
+			}
+		}
+		
+	
+		
+	}
+	
+	public String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produção
+		
+		EnumeracaoDaGramatica[] Enumeracao = new EnumeracaoDaGramatica[30];
+		Enumeracao[1]  = new EnumeracaoDaGramatica(1,"P' -> P");
+		Enumeracao[2]  = new EnumeracaoDaGramatica(2,"P -> inicio V A");
+		Enumeracao[3]  = new EnumeracaoDaGramatica(3,"V -> varinicio LV");
+		Enumeracao[4]  = new EnumeracaoDaGramatica(4,"LV -> D LV");
+		Enumeracao[5]  = new EnumeracaoDaGramatica(5,"LV -> varfim;");
+		Enumeracao[6]  = new EnumeracaoDaGramatica(6,"D -> id TIPO;");
+		Enumeracao[7]  = new EnumeracaoDaGramatica(7,"TIPO -> int");
+		Enumeracao[8]  = new EnumeracaoDaGramatica(8,"TIPO -> real");
+		Enumeracao[9]  = new EnumeracaoDaGramatica(9,"TIPO -> lit");
+		Enumeracao[10] = new EnumeracaoDaGramatica(10,"A -> ES A");
+		Enumeracao[11] = new EnumeracaoDaGramatica(11,"ES -> leia id;");
+		Enumeracao[12] = new EnumeracaoDaGramatica(12,"ES -> escreva ARG;");
+		Enumeracao[13] = new EnumeracaoDaGramatica(13,"ARG -> literal");
+		Enumeracao[14] = new EnumeracaoDaGramatica(14,"ARG -> num");
+		Enumeracao[15] = new EnumeracaoDaGramatica(15,"ARG -> id");
+		Enumeracao[16] = new EnumeracaoDaGramatica(16,"A -> CMD A");
+		Enumeracao[17] = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD;");
+		Enumeracao[18] = new EnumeracaoDaGramatica(18,"LD -> OPRD opm OPRD");
+		Enumeracao[19] = new EnumeracaoDaGramatica(19,"LD -> OPRD");
+		Enumeracao[20] = new EnumeracaoDaGramatica(20,"OPRD -> id");
+		Enumeracao[21] = new EnumeracaoDaGramatica(21,"OPRD -> num");
+		Enumeracao[22] = new EnumeracaoDaGramatica(22,"A -> COND A");
+		Enumeracao[23] = new EnumeracaoDaGramatica(23,"COND -> CABEÇALHO CORPO");
+		Enumeracao[24] = new EnumeracaoDaGramatica(24,"CABEÇALHO -> se (EXP_R) então");
+		Enumeracao[25] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
+		Enumeracao[26] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
+		Enumeracao[27] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
+		Enumeracao[28] = new EnumeracaoDaGramatica(28,"CORPO -> COND CORP");
+		Enumeracao[29] = new EnumeracaoDaGramatica(29,"CORPO -> fimse");
+		Enumeracao[30] = new EnumeracaoDaGramatica(29,"A -> fim");
+	
+		return Enumeracao[line].getSentenca();
+
 	}
 	//Tabela GOTO]
 	
