@@ -1,10 +1,12 @@
 O QUE FAZER:
 
 PACOTE analisadores
-  - CLASSE Sintática
+  - CLASSE Sintática (70% pronta)
+ 
+Fazer a chamada do método sintático na main
+  - Retirar a chamada do léxico e colocar a do sintático
   
-PACOTE dados
-  - CLASSE EnumeracaoDaGramatica
+Tratar os casos de erro na análise
+  - Fazer lista com mensagem de erros por estado
   
-PACOTE tabelas
-  - CLASSE TabelaSintatica
+  
