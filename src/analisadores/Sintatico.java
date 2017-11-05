@@ -196,7 +196,7 @@ public class Sintatico {
 				30 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				31 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				32 ,  0,  0,  0,  0,  0,  0,  0,  0,  0, 44, 45,  0,  0,  0,  0,
-				33 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0, 49, 48,
+				33 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0,  0, 48,
 				34 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				35 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				36 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -244,62 +244,82 @@ public class Sintatico {
 	
 		int t = 0;
 	
+		//Aqui se adicionam os valores na tabela
 		for (int i = 0; i < 60; i++) {
 			for (int j = 0; j < 16; j++) {
-				tabelaGOTO[i][j] = new TabelaSintatica(G[t]); // Ta com erro pq eu n coloquei valores para S
+				tabelaGOTO[i][j] = new TabelaSintatica(G[t]);
 				t++;
 			}
 		}
+		
+		//A variavel word serve como auxiliar que guarda o numero de cada terminal na tabela.
 		int word = 0;
 		int column = 0;
+		
 		//Verifique a qual decimal o nao-terminal estah relacionado.
 		switch(nonTerminal) {
 			case "LV":
 				word = 133;
 				break;
+			
 			case "TIPO":
 				word = 134;
 				break;
+			
 			case "ES":
 				word = 135;
 				break;
+			
 			case "ARG":
 				word = 136;
 				break;
+			
 			case "CMD":
 				word = 137;
 				break;
+			
 			case "LD":
 				word = 138;
 				break;
+			
 			case "OPRD":
 				word = 139;
 				break;
+			
 			case "COND":
 				word = 140;
 				break;
+			
 			case "CABECALHO":
 				word = 141;
 				break;
+			
 			case "CORPO":
 				word = 142;
 				break;
+			
 			case "EXP_R":
 				word = 143;
 				break;
+			
 			case "P":
 				word = 80;
 				break;
+			
 			case "V":
 				word = 86;
 				break;
+			
 			case "A":
 				word = 65;
 				break;
+			
 			case "D":
 				word = 68;
 				break;
 		}
+		
+		//Aqui se procura qual a coluna do nao-terminal a partir de seu respectivo numero
 		for(int i = 0; i < 16; i++) {
 			if(tabelaGOTO[0][i].getElemento() == word) {
 				column = i;
@@ -410,107 +430,116 @@ public class Sintatico {
 		TabelaSintatica tabelaACTION[][] = new TabelaSintatica[60][23];
 		
 		int t = 0;
-	
+		
+		//Aqui se faz a passagem de valores para a tabela.
 		for (int i = 0; i < 60; i++) {
 			for (int j = 0; j < 23; j++) {
 				tabelaACTION[i][j] = new TabelaSintatica(A[t]); 
 				t++;
 			}
 		}
-		int word = 0;
+		
+		//A variavel word serve como auxiliar que guarda o numero de cada terminal na tabela.
+		int word   = 0;
 		int column = 0;
 
-		//Verifique a qual decimal ele estah relacionado.
+		//Verifique a qual decimal word estah relacionado.
 		switch(terminal) {
 		case "inicio":
 			word = 133;
 			break;
+		
 		case "varinicio":
 			word = 134;
 			break;
+		
 		case "varfim":
 			word = 135;
 			break;
+		
 		case "inteiro":
 			word = 136;
 			break;
+		
 		case "real":
 			word = 137;
 			break;
+		
 		case "lit":
 			word = 138;
 			break;
+		
 		case "leia":
 			word = 139;
 			break;
+		
 		case "escreva":
 			word = 141;
 			break;
+		
 		case "literal":
 			word = 142;
 			break;
+		
 		case "num":
 			word = 143;
 			break;
-		case "rcb":
-			word = 144;
-			break;
+		
+		//rcb na gramatica eh simbolizado por <-
 		case "<-":
 			word = 144;
 			break;
-		case "opm":
+		
+		//Casos opm
+		case "+":	case "-":
+		case "*":	case "/":
 			word = 145;
 			break;
-		case "+":
-			word = 145;
-			break;
-		case "-":
-			word = 145;
-			break;
-		case "*":
-			word = 145;
-			break;
-		case "/":
-			word = 145;
-			break;
+			
 		case "se":
 			word = 146;
 			break;
+		
 		case "entao":
 			word = 147;
 			break;
-		case "opr":
+		
+		//CASOS opr
+		case "<" :	case ">" :	case ">=":
+		case "<=":	case "<>":	case "=":
 			word = 148;
 			break;
-		case "<":
-			word = 148;
-			break;
-		case ">":
-			word = 148;
-			break;
+			
 		case "fimse":
 			word = 149;
 			break;
+		
 		case "fim":
 			word = 150;
 			break;
+		
 		case ";":
 			word = 59;
 			break;
+		
 		case "(":
 			word = 40;
 			break;
+		
 		case ")":
 			word = 41;
 			break;
-		case "EOF":
+		
+		case "EOF":	//Fim do arquivo
 			word = 36;
 			break;
-		default://Quando eh um id ( A B C )
+		
+		default:	//Quando eh um id ( A B C )
 			word = 140;
 			break;
 		}
 	
+		//Aqui se procura qual a coluna do terminal a partir de seu respectivo numero
 		for(int i = 0; i < 23; i++) {
 			if(tabelaACTION[0][i].getElemento() == word) {		
 				column = i;
@@ -522,10 +551,5 @@ public class Sintatico {
 			//Dessa forma, o estado 0 estah na linha 1, o estado 1 na linha 2
 			//e assim por diante.
 	}
-	
-	
-	
-	
-	
-	
+			
 }
