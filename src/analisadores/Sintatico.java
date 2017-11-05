@@ -2,12 +2,18 @@ package analisadores;
 
 import tabelas.*;
 import dados.*;
+
+import java.util.Scanner;
 import java.util.Stack;
 
 
 public class Sintatico {
 	
-	public String analisadorSintatico() {
+	private static Scanner s;
+
+	public static void analisadorSintatico() {
+		
+		s = new Scanner(System.in);
 		
 		//Pilha de estados do analisador sintático.
 		Stack<Integer> estados = new Stack<Integer>();
@@ -30,6 +36,8 @@ public class Sintatico {
 				//Pela regra definida na tabela ACTION, se o numero é maior que 0, indica empilhamento.
 				//Confira também se não é o estado de aceitação.
 			if((getACTION(state, simbolo.getLexema()) > 0) && (getACTION(state, simbolo.getLexema()) != 151)) { 
+				System.out.println(" Estado: "+state+" \tTerminal: "+simbolo.getLexema()+
+						"\tEmpilha: "+getACTION(state, simbolo.getLexema()));
 				estados.push(getACTION(state, simbolo.getLexema()));
 				simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
 				
@@ -41,10 +49,9 @@ public class Sintatico {
 			else if(getACTION(state, simbolo.getLexema()) <= 0) {
 				//Para voltar ao numero verdadeiro da produção a ser reduzida.
 				int reduce = getACTION(state, simbolo.getLexema()) * (-1);
-	
 				//Encontra a sentença que está sendo reduzida.
 				String sentenca = getSentenca(reduce);
-				
+				System.out.println("\nSenten�a reduzida: "+sentenca);
 				//Para encontrar a quantidade de símbolos de Beta.
 				int qtdSimbolosBeta = 0;
 				boolean isBeta = false;
@@ -63,6 +70,8 @@ public class Sintatico {
 				
 				}
 				
+				System.out.println("\nQuantidade de simbolos: "+qtdSimbolosBeta);
+				
 				int j = 0;
 				//Para recuperar o não-terminal
 				while(sentenca.charAt(j) != ' ') {
@@ -71,78 +80,81 @@ public class Sintatico {
 				}
 				
 				//Desempilha qtdSimbolosBeta de estados.
-				for(int i = 0; i <= qtdSimbolosBeta; i++) 
+				for(int i = 0; i < qtdSimbolosBeta; i++) 
 					estados.pop();
 				
 				//Faça o estado t ser o topo da pilha.
 				state = estados.peek();
-				
+			
 				//Empilhe GOTO[t, A].
 				estados.push(getGOTO(state, nonterminal.toString()));
 
+				System.out.println("\nEstado: "+state+" N�o terminal: "+nonterminal);
+				System.out.println("Indo pro estado: "+getGOTO(state, nonterminal.toString()));
+				
 				//Imprima a produção A -> B.
-				System.out.println("Sentença reduzida:"+sentenca);
-				return sentenca;
+				System.out.println("Senten�a reduzida:"+sentenca);
+				s.nextLine();
 			}
 			
 			//Se há aceitação
 			else if(getACTION(state, simbolo.getLexema()) == 151) {
 				System.out.println("Aceitação");
-				return "Aceitação";
+				s.nextLine();
 			}
 			
 			//Senão, há erro.
 			else{
 				//Mostre o erro.
 				System.out.println("Chame uma rotina de tratamento de erro");
-				return "Erro";
+				s.nextLine();
 			}
 		}
 		
-	
-		
 	}
 	
-	public String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produção
-		
+	public static String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produção
+
 		EnumeracaoDaGramatica[] Enumeracao = new EnumeracaoDaGramatica[30];
-		Enumeracao[1]  = new EnumeracaoDaGramatica(1,"P' -> P");
-		Enumeracao[2]  = new EnumeracaoDaGramatica(2,"P -> inicio V A");
-		Enumeracao[3]  = new EnumeracaoDaGramatica(3,"V -> varinicio LV");
-		Enumeracao[4]  = new EnumeracaoDaGramatica(4,"LV -> D LV");
-		Enumeracao[5]  = new EnumeracaoDaGramatica(5,"LV -> varfim;");
-		Enumeracao[6]  = new EnumeracaoDaGramatica(6,"D -> id TIPO;");
-		Enumeracao[7]  = new EnumeracaoDaGramatica(7,"TIPO -> int");
-		Enumeracao[8]  = new EnumeracaoDaGramatica(8,"TIPO -> real");
-		Enumeracao[9]  = new EnumeracaoDaGramatica(9,"TIPO -> lit");
-		Enumeracao[10] = new EnumeracaoDaGramatica(10,"A -> ES A");
-		Enumeracao[11] = new EnumeracaoDaGramatica(11,"ES -> leia id;");
-		Enumeracao[12] = new EnumeracaoDaGramatica(12,"ES -> escreva ARG;");
-		Enumeracao[13] = new EnumeracaoDaGramatica(13,"ARG -> literal");
-		Enumeracao[14] = new EnumeracaoDaGramatica(14,"ARG -> num");
-		Enumeracao[15] = new EnumeracaoDaGramatica(15,"ARG -> id");
-		Enumeracao[16] = new EnumeracaoDaGramatica(16,"A -> CMD A");
-		Enumeracao[17] = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD;");
-		Enumeracao[18] = new EnumeracaoDaGramatica(18,"LD -> OPRD opm OPRD");
-		Enumeracao[19] = new EnumeracaoDaGramatica(19,"LD -> OPRD");
-		Enumeracao[20] = new EnumeracaoDaGramatica(20,"OPRD -> id");
-		Enumeracao[21] = new EnumeracaoDaGramatica(21,"OPRD -> num");
-		Enumeracao[22] = new EnumeracaoDaGramatica(22,"A -> COND A");
-		Enumeracao[23] = new EnumeracaoDaGramatica(23,"COND -> CABEÇALHO CORPO");
-		Enumeracao[24] = new EnumeracaoDaGramatica(24,"CABEÇALHO -> se (EXP_R) então");
-		Enumeracao[25] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
-		Enumeracao[26] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
-		Enumeracao[27] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
-		Enumeracao[28] = new EnumeracaoDaGramatica(28,"CORPO -> COND CORP");
-		Enumeracao[29] = new EnumeracaoDaGramatica(29,"CORPO -> fimse");
-		Enumeracao[30] = new EnumeracaoDaGramatica(29,"A -> fim");
-	
-		return Enumeracao[line].getSentenca();
+		// Aten��o: A linha 1 da gram�tica � o elemento 0 da enumera��o. Por isso,
+		//no retorno o elemento retornado � line - 1.
+		Enumeracao[0]  = new EnumeracaoDaGramatica(1,"P' -> P");
+		Enumeracao[1]  = new EnumeracaoDaGramatica(2,"P -> inicio V A");
+		Enumeracao[2]  = new EnumeracaoDaGramatica(3,"V -> varinicio LV");
+		Enumeracao[3]  = new EnumeracaoDaGramatica(4,"LV -> D LV");
+		Enumeracao[4]  = new EnumeracaoDaGramatica(5,"LV -> varfim;");
+		Enumeracao[5]  = new EnumeracaoDaGramatica(6,"D -> id TIPO;");
+		Enumeracao[6]  = new EnumeracaoDaGramatica(7,"TIPO -> int");
+		Enumeracao[7]  = new EnumeracaoDaGramatica(8,"TIPO -> real");
+		Enumeracao[8]  = new EnumeracaoDaGramatica(9,"TIPO -> lit");
+		Enumeracao[9] = new EnumeracaoDaGramatica(10,"A -> ES A");
+		Enumeracao[10] = new EnumeracaoDaGramatica(11,"ES -> leia id;");
+		Enumeracao[11] = new EnumeracaoDaGramatica(12,"ES -> escreva ARG;");
+		Enumeracao[12] = new EnumeracaoDaGramatica(13,"ARG -> literal");
+		Enumeracao[13] = new EnumeracaoDaGramatica(14,"ARG -> num");
+		Enumeracao[14] = new EnumeracaoDaGramatica(15,"ARG -> id");
+		Enumeracao[15] = new EnumeracaoDaGramatica(16,"A -> CMD A");
+		Enumeracao[16] = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD;");
+		Enumeracao[17] = new EnumeracaoDaGramatica(18,"LD -> OPRD opm OPRD");
+		Enumeracao[18] = new EnumeracaoDaGramatica(19,"LD -> OPRD");
+		Enumeracao[19] = new EnumeracaoDaGramatica(20,"OPRD -> id");
+		Enumeracao[20] = new EnumeracaoDaGramatica(21,"OPRD -> num");
+		Enumeracao[21] = new EnumeracaoDaGramatica(22,"A -> COND A");
+		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABEÇALHO CORPO");
+		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABEÇALHO -> se (EXP_R) então");
+		Enumeracao[24] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
+		Enumeracao[25] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
+		Enumeracao[26] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
+		Enumeracao[27] = new EnumeracaoDaGramatica(28,"CORPO -> COND CORP");
+		Enumeracao[28] = new EnumeracaoDaGramatica(29,"CORPO -> fimse");
+		Enumeracao[29] = new EnumeracaoDaGramatica(29,"A -> fim");
+		
+		return Enumeracao[line-1].getSentenca();
 
 	}
 	//Tabela GOTO]
 	
-	public int getGOTO(int line, String nonTerminal) {
+	public static int getGOTO(int line, String nonTerminal) {
 		//Onde Line é o estado atual e nonTerminal é o não-terminal
 		int G[] = {
 				128, 80, 86, 65,133, 68,134,135,136,137,138,139,140,141,142,143,
@@ -236,31 +248,48 @@ public class Sintatico {
 				t++;
 			}
 		}
+		int word = 0;
 		int column = 0;
 		//Em caso de não-terminais de mais de uma letra, verifique a qual decimal ele está relacionado.
 		switch(nonTerminal) {
 			case "LV":
-				column = 133;
+				word = 133;
+				break;
 			case "TIPO":
-				column = 134;
+				word = 134;
+				break;
 			case "ES":
-				column = 135;
+				word = 135;
+				break;
 			case "ARG":
-				column = 136;
+				word = 136;
+				break;
 			case "CMD":
-				column = 137;
+				word = 137;
+				break;
 			case "LD":
-				column = 138;
+				word = 138;
+				break;
 			case "OPRD":
-				column = 139;
+				word = 139;
+				break;
 			case "COND":
-				column = 140;
+				word = 140;
+				break;
 			case "CABECALHO":
-				column = 141;
+				word = 141;
+				break;
 			case "CORPO":
-				column = 142;
+				word = 142;
+				break;
 			case "EXP_R":
-				column = 143;
+				word = 143;
+				break;
+		}
+		for(int i = 0; i < 16; i++) {
+			if(tabelaGOTO[0][i].getElemento() == word) {
+				column = i;
+			}
 		}
 		
 		return tabelaGOTO[line+1][column].getElemento();
@@ -269,7 +298,7 @@ public class Sintatico {
 		//e assim por diante.
 	}
 	
-	public int getACTION(int line, String terminal) {
+	public static int getACTION(int line, String terminal) {
 		
 		int A[] = {
 				128, 133, 134, 135,  59, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146,  40,  41, 147, 148, 149, 150,  36,
@@ -374,46 +403,74 @@ public class Sintatico {
 				t++;
 			}
 		}
+		int word = 0;
 		int column = 0;
-		
+
 		//Em caso de terminais de mais de uma letra, verifique a qual decimal ele está relacionado.
 		switch(terminal) {
 		case "inicio":
-			column = 133;
+			word = 133;
+			break;
 		case "varinicio":
-			column = 134;
+			word = 134;
+			break;
 		case "varfim":
-			column = 135;
+			word = 135;
+			break;
 		case "int":
-			column = 136;
+			word = 136;
+			break;
 		case "real":
-			column = 137;
+			word = 137;
+			break;
 		case "lit":
-			column = 138;
+			word = 138;
+			break;
 		case "leia":
-			column = 139;
-		case "id":
-			column = 140;
+			word = 139;
+			break;
 		case "escreva":
-			column = 141;
+			word = 141;
+			break;
 		case "literal":
-			column = 142;
+			word = 142;
+			break;
 		case "num":
-			column = 143;
+			word = 143;
+			break;
 		case "rcb":
-			column = 144;
+			word = 144;
+			break;
 		case "opm":
-			column = 145;
+			word = 145;
+			break;
 		case "se":
-			column = 146;
+			word = 146;
+			break;
 		case "entao":
-			column = 147;
+			word = 147;
+			break;
 		case "opr":
-			column = 148;
+			word = 148;
+			break;
 		case "fimse":
-			column = 149;
+			word = 149;
+			break;
 		case "fim":
-			column = 150;
+			word = 150;
+			break;
+		case ";":
+			word = 59;
+			break;
+		default://Quando � um id
+			word = 140;
+			break;
+		}
+	
+		for(int i = 0; i < 23; i++) {
+			if(tabelaACTION[0][i].getElemento() == word) {		
+				column = i;
+			}
 		}
 		
 		return tabelaACTION[line+1][column].getElemento();
