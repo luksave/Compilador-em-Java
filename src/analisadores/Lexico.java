@@ -23,7 +23,7 @@ public class Lexico {
 	
 	public static Simbolo getLex(int posi) { // Funcao que le o arquivo, acha Lexemas, insere lexemas na tabela e
 												// retorna lexemas.
-
+	
 		pos = posi; // A posicao atual da leitura eh atualizada.
 
 		long tam;
@@ -125,7 +125,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
@@ -344,4 +344,5 @@ public class Lexico {
 		}
 		return null;
 	}
+	
 }
