@@ -145,7 +145,7 @@ public class Sintatico {
 		Enumeracao[19] = new EnumeracaoDaGramatica(20,"OPRD -> id");
 		Enumeracao[20] = new EnumeracaoDaGramatica(21,"OPRD -> num");
 		Enumeracao[21] = new EnumeracaoDaGramatica(22,"A -> COND A");
-		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABECAALHO CORPO");
+		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABECALHO CORPO");
 		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABECALHO -> se (EXP_R) entao");
 		Enumeracao[24] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
 		Enumeracao[25] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
@@ -228,7 +228,7 @@ public class Sintatico {
 		 * Legenda da TABELA GOTO: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referencia aos caracteres(Os nao-terminais formados por mais de uma letra
 		 * tem digitos especiais). 
-		 * Os 59 estados(0 a 58 são a primeira coluna da tabela)
+		 * Os 59 estados(0 a 58 sao a primeira coluna da tabela)
 		 * A Tabela ASCII vai ate 127, entao usei numeros
 		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela, tinha
 		 * que colocar um numero peguei o 128;
