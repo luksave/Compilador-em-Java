@@ -104,11 +104,11 @@ public class Sintatico {
 			
 			//Se ha aceitacao
 			else if(getACTION(state, simbolo.getLexema()) == 151) {
-				System.out.println("Aceitação");
-				s.nextLine();
+				System.out.println("Aceitacao");
+				return;
 			}
 			
-			//Senão, ha erro.
+			//Senao, ha erro.
 			else{
 				//Mostre o erro.
 				System.out.println("Chame uma rotina de tratamento de erro");
@@ -146,7 +146,7 @@ public class Sintatico {
 		Enumeracao[20] = new EnumeracaoDaGramatica(21,"OPRD -> num");
 		Enumeracao[21] = new EnumeracaoDaGramatica(22,"A -> COND A");
 		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABECALHO CORPO");
-		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABECALHO -> se (EXP_R) entao");
+		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABECALHO -> se ( EXP_R ) entao");
 		Enumeracao[24] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
 		Enumeracao[25] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
 		Enumeracao[26] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
@@ -196,7 +196,7 @@ public class Sintatico {
 				30 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				31 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				32 ,  0,  0,  0,  0,  0,  0,  0,  0,  0, 44, 45,  0,  0,  0,  0,
-				33 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49, 48,
+				33 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49,  0,  0, 49, 48,
 				34 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				35 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 				36 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -482,6 +482,12 @@ public class Sintatico {
 		case "opr":
 			word = 148;
 			break;
+		case "<":
+			word = 148;
+			break;
+		case ">":
+			word = 148;
+			break;
 		case "fimse":
 			word = 149;
 			break;
@@ -496,6 +502,9 @@ public class Sintatico {
 			break;
 		case ")":
 			word = 41;
+			break;
+		case "EOF":
+			word = 36;
 			break;
 		default://Quando eh um id ( A B C )
 			word = 140;
