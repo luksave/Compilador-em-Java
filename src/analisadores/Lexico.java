@@ -77,7 +77,7 @@ public class Lexico {
 		int t = 0;
 		for (int i = 0; i < 29; i++) {
 			for (int j = 0; j < 24; j++) {
-				tabeladetransicao[i][j] = new TabeladeTransicao(S[t]); // Ta com erro pq eu n coloquei valores para S
+				tabeladetransicao[i][j] = new TabeladeTransicao(S[t]);
 				t++;
 			}
 		}

@@ -15,13 +15,13 @@ public class Sintatico {
 		
 		s = new Scanner(System.in);
 		
-		//Pilha de estados do analisador sintático.
+		//Pilha de estados do analisador sintatico.
 		Stack<Integer> estados = new Stack<Integer>();
 		
 		//Para navegar nas tabelas:
 		int state;
 
-		//O primeiro símbolo do buffer.
+		//O primeiro simbolo do buffer.
 		Simbolo simbolo = Lexico.getLex(0);		//simbolos são os lexemas que são retornados.
 		
 		//O primeiro estado na pilha.
@@ -32,36 +32,41 @@ public class Sintatico {
 			//Encontre o estado no topo da pilha.
 			state = estados.peek();
 			
-			//Se haverá empilhamento:
-				//Pela regra definida na tabela ACTION, se o numero é maior que 0, indica empilhamento.
-				//Confira também se não é o estado de aceitação.
+			//Se havera empilhamento:
+				//Pela regra definida na tabela ACTION, se o numero eh maior que 0, indica empilhamento.
+				//Confira tambem se nao eh o estado de aceitacao.
 			if((getACTION(state, simbolo.getLexema()) > 0) && (getACTION(state, simbolo.getLexema()) != 151)) { 
+				
 				System.out.println(" Estado: "+state+" \tTerminal: "+simbolo.getLexema()+
 						"\tEmpilha: "+getACTION(state, simbolo.getLexema()));
+				
 				estados.push(getACTION(state, simbolo.getLexema()));
+				
 				simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
 				
 			}
 			
-			//Se haverá redução:
-				//Pela regra definida na tabela ACTION, se o numero é menor que 0, indica empilhamento.
-				//Se o numero for 0 é um falso empilhamento. O tratamento é feito aqui????
+			//Se havera reducao:
+				//Pela regra definida na tabela ACTION, se o numero eh menor que 0, indica empilhamento.
 			else if(getACTION(state, simbolo.getLexema()) <= 0) {
-				//Para voltar ao numero verdadeiro da produção a ser reduzida.
+				
+				//Para voltar ao numero verdadeiro da producao a ser reduzida.
 				int reduce = getACTION(state, simbolo.getLexema()) * (-1);
-				//Encontra a sentença que está sendo reduzida.
+				
+				//Encontra a sentença que esta sendo reduzida.
 				String sentenca = getSentenca(reduce);
 				System.out.println("\nSenten�a reduzida: "+sentenca);
-				//Para encontrar a quantidade de símbolos de Beta.
+				
+				//Para encontrar a quantidade de simbolos de Beta.
 				int qtdSimbolosBeta = 0;
 				boolean isBeta = false;
 				
-				//Para guarda qual o não terminal.
+				//Para guarda qual o nao terminal.
 				StringBuilder nonterminal = new StringBuilder();
 				
 				//Recupera a quantidade de simbolos Beta.
 				for(int i = 0; i < sentenca.length(); i++) {
-					//Só passa a considerar palavras após ->.
+					//Soh passa a considerar palavras apos ->.
 					if(sentenca.charAt(i) == '-' && sentenca.charAt(i + 1) == '>')
 						isBeta = true;
 				
@@ -73,7 +78,7 @@ public class Sintatico {
 				System.out.println("\nQuantidade de simbolos: "+qtdSimbolosBeta);
 				
 				int j = 0;
-				//Para recuperar o não-terminal
+				//Para recuperar o nao-terminal
 				while(sentenca.charAt(j) != ' ') {
 					nonterminal.append(sentenca.charAt(j));
 					j++;
@@ -83,27 +88,27 @@ public class Sintatico {
 				for(int i = 0; i < qtdSimbolosBeta; i++) 
 					estados.pop();
 				
-				//Faça o estado t ser o topo da pilha.
+				//Faca o estado t ser o topo da pilha.
 				state = estados.peek();
 			
 				//Empilhe GOTO[t, A].
 				estados.push(getGOTO(state, nonterminal.toString()));
 
-				System.out.println("\nEstado: "+state+" N�o terminal: "+nonterminal);
-				System.out.println("Indo pro estado: "+getGOTO(state, nonterminal.toString()));
+				System.out.println("\nEstado: "+state+"\tN�o terminal: "+nonterminal+
+						"\tTransicao: "+getGOTO(state, nonterminal.toString()));
 				
-				//Imprima a produção A -> B.
-				System.out.println("Senten�a reduzida:"+sentenca);
+				//Imprima a producao A -> B.
+				System.out.println("\nSenten�a reduzida:"+sentenca);
 				s.nextLine();
 			}
 			
-			//Se há aceitação
+			//Se ha aceitacao
 			else if(getACTION(state, simbolo.getLexema()) == 151) {
 				System.out.println("Aceitação");
 				s.nextLine();
 			}
 			
-			//Senão, há erro.
+			//Senão, ha erro.
 			else{
 				//Mostre o erro.
 				System.out.println("Chame uma rotina de tratamento de erro");
@@ -116,32 +121,32 @@ public class Sintatico {
 	public static String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produção
 
 		EnumeracaoDaGramatica[] Enumeracao = new EnumeracaoDaGramatica[30];
-		// Aten��o: A linha 1 da gram�tica � o elemento 0 da enumera��o. Por isso,
-		//no retorno o elemento retornado � line - 1.
+		// Atencao: A linha 1 da gramatica eh o elemento 0 da enumeracao. Por isso,
+		//no retorno o elemento retornado eh line - 1.
 		Enumeracao[0]  = new EnumeracaoDaGramatica(1,"P' -> P");
 		Enumeracao[1]  = new EnumeracaoDaGramatica(2,"P -> inicio V A");
 		Enumeracao[2]  = new EnumeracaoDaGramatica(3,"V -> varinicio LV");
 		Enumeracao[3]  = new EnumeracaoDaGramatica(4,"LV -> D LV");
-		Enumeracao[4]  = new EnumeracaoDaGramatica(5,"LV -> varfim;");
-		Enumeracao[5]  = new EnumeracaoDaGramatica(6,"D -> id TIPO;");
+		Enumeracao[4]  = new EnumeracaoDaGramatica(5,"LV -> varfim ;");
+		Enumeracao[5]  = new EnumeracaoDaGramatica(6,"D -> id TIPO ;");
 		Enumeracao[6]  = new EnumeracaoDaGramatica(7,"TIPO -> int");
 		Enumeracao[7]  = new EnumeracaoDaGramatica(8,"TIPO -> real");
 		Enumeracao[8]  = new EnumeracaoDaGramatica(9,"TIPO -> lit");
 		Enumeracao[9] = new EnumeracaoDaGramatica(10,"A -> ES A");
-		Enumeracao[10] = new EnumeracaoDaGramatica(11,"ES -> leia id;");
-		Enumeracao[11] = new EnumeracaoDaGramatica(12,"ES -> escreva ARG;");
+		Enumeracao[10] = new EnumeracaoDaGramatica(11,"ES -> leia id ;");
+		Enumeracao[11] = new EnumeracaoDaGramatica(12,"ES -> escreva ARG ;");
 		Enumeracao[12] = new EnumeracaoDaGramatica(13,"ARG -> literal");
 		Enumeracao[13] = new EnumeracaoDaGramatica(14,"ARG -> num");
 		Enumeracao[14] = new EnumeracaoDaGramatica(15,"ARG -> id");
 		Enumeracao[15] = new EnumeracaoDaGramatica(16,"A -> CMD A");
-		Enumeracao[16] = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD;");
+		Enumeracao[16] = new EnumeracaoDaGramatica(17,"CMD -> id rcb LD ;");
 		Enumeracao[17] = new EnumeracaoDaGramatica(18,"LD -> OPRD opm OPRD");
 		Enumeracao[18] = new EnumeracaoDaGramatica(19,"LD -> OPRD");
 		Enumeracao[19] = new EnumeracaoDaGramatica(20,"OPRD -> id");
 		Enumeracao[20] = new EnumeracaoDaGramatica(21,"OPRD -> num");
 		Enumeracao[21] = new EnumeracaoDaGramatica(22,"A -> COND A");
-		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABEÇALHO CORPO");
-		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABEÇALHO -> se (EXP_R) então");
+		Enumeracao[22] = new EnumeracaoDaGramatica(23,"COND -> CABECAALHO CORPO");
+		Enumeracao[23] = new EnumeracaoDaGramatica(24,"CABECALHO -> se (EXP_R) entao");
 		Enumeracao[24] = new EnumeracaoDaGramatica(25,"EXP_R -> OPRD opr OPRD");
 		Enumeracao[25] = new EnumeracaoDaGramatica(26,"CORPO -> ES CORPO");
 		Enumeracao[26] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
@@ -155,82 +160,79 @@ public class Sintatico {
 	//Tabela GOTO]
 	
 	public static int getGOTO(int line, String nonTerminal) {
-		//Onde Line é o estado atual e nonTerminal é o não-terminal
+		//Onde Line eh o estado atual e nonTerminal eh o nao-terminal
 		int G[] = {
 				128, 80, 86, 65,133, 68,134,135,136,137,138,139,140,141,142,143,
-				0  ,  1,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				1  ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				2  ,132,  3,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				3  ,132,132,  5,132,132,132,  6,132,  7,132,132,  8,  9,132,132,
-				4  ,132,132,132, 15, 16,132,132,132,132,132,132,132,132,132,132,
-				5  ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				6  ,132,132, 19,132,132,132,  6,132,  7,132,132,  8,  9,132,132,
-				7  ,132,132, 20,132,132,132,  6,132,  7,132,132,  8,  9,132,132,
-				8  ,132,132, 21,132,132,132,  6,132,  7,132,132,  8,  9,132,132,
-				9  ,132,132,132,132,132,132, 23,132, 24,132,132, 25,  9, 22,132,
-				10 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				11 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				12 ,132,132,132,132,132,132,132, 28,132,132,132,132,132,132,132,
-				13 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				14 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				15 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				16 ,132,132,132, 34, 16,132,132,132,132,132,132,132,132,132,132,
-				17 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				18 ,132,132,132,132,132, 36,132,132,132,132,132,132,132,132,132,
-				19 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				20 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				21 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				22 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				23 ,132,132,132,132,132,132, 23,132, 24,132,132, 25,  9, 40,132,
-				24 ,132,132,132,132,132,132, 23,132, 24,132,132, 25,  9, 41,132,
-				25 ,132,132,132,132,132,132, 23,132, 24,132,132, 25,  9, 50,132,
-				26 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				27 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				28 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				29 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				30 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				31 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				32 ,132,132,132,132,132,132,132,132,132, 44, 45,132,132,132,132,
-				33 ,132,132,132,132,132,132,132,132,132,132,132,132,132, 49, 48,
-				34 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				35 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				36 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				37 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				38 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				39 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				40 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				41 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				42 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				43 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				44 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				45 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				46 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				47 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				48 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				49 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				50 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				51 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				52 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				53 ,132,132,132,132,132,132,132,132,132,132, 55,132,132,132,132,
-				54 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				55 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				56 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132,
-				57 ,132,132,132,132,132,132,132,132,132,132, 58,132,132,132,132,
-				58 ,132,132,132,132,132,132,132,132,132,132,132,132,132,132,132
+				0  ,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				1  ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				2  ,  0,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				3  ,  0,  0,  5,  0,  0,  0,  6,  0,  7,  0,  0,  8,  9,  0,  0,
+				4  ,  0,  0,  0, 15, 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				5  ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				6  ,  0,  0, 19,  0,  0,  0,  6,  0,  7,  0,  0,  8,  9,  0,  0,
+				7  ,  0,  0, 20,  0,  0,  0,  6,  0,  7,  0,  0,  8,  9,  0,  0,
+				8  ,  0,  0, 21,  0,  0,  0,  6,  0,  7,  0,  0,  8,  9,  0,  0,
+				9  ,  0,  0,  0,  0,  0,  0, 23,  0, 24,  0,  0, 25,  9, 22,  0,
+				10 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				11 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				12 ,  0,  0,  0,  0,  0,  0,  0, 28,  0,  0,  0,  0,  0,  0,  0,
+				13 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				14 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				15 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				16 ,  0,  0,  0, 34, 16,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				17 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				18 ,  0,  0,  0,  0,  0, 36,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				19 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				20 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				21 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				22 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				23 ,  0,  0,  0,  0,  0,  0, 23,  0, 24,  0,  0, 25,  9, 40,  0,
+				24 ,  0,  0,  0,  0,  0,  0, 23,  0, 24,  0,  0, 25,  9, 41,  0,
+				25 ,  0,  0,  0,  0,  0,  0, 23,  0, 24,  0,  0, 25,  9, 50,  0,
+				26 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				27 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				28 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				29 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				30 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				31 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				32 ,  0,  0,  0,  0,  0,  0,  0,  0,  0, 44, 45,  0,  0,  0,  0,
+				33 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 49, 48,
+				34 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				35 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				36 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				37 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				38 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				39 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				40 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				41 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				42 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				43 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				44 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				45 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				46 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				47 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				48 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				49 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				50 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				51 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				52 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				53 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 55,  0,  0,  0,  0,
+				54 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				55 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				56 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+				57 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 58,  0,  0,  0,  0,
+				58 ,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 		};
 		
 		/*
 		 * Legenda da TABELA GOTO: Primeira linha utilizei a Tabela ASCII para fazer
-		 * referencia aos caracteres(Os não-terminais formados por mais de uma letra
+		 * referencia aos caracteres(Os nao-terminais formados por mais de uma letra
 		 * tem digitos especiais). 
 		 * Os 59 estados(0 a 58 são a primeira coluna da tabela)
 		 * A Tabela ASCII vai ate 127, entao usei numeros
 		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela, tinha
 		 * que colocar um numero peguei o 128;
-		 * Os erros são marcados por 132
-		 * Os não terminais de só uma letra, por exemplo 'A', são referenciados por seu
-		 * próprio inteiro na tabela ASCII; no caso de A, 65.
-		 * Legenda dos não-terminais de mais de uma letra:
+		 * Os erros sao marcados por 132
 		 * 		LV    = 133.	TIPO  = 134.	ES        = 135.
 	 	 * 		ARG   = 136.   	CMD   = 137.	LD        = 138.
 	 	 * 		OPRD  = 139.	COND  = 140.	CABECALHO = 141.
@@ -250,7 +252,7 @@ public class Sintatico {
 		}
 		int word = 0;
 		int column = 0;
-		//Em caso de não-terminais de mais de uma letra, verifique a qual decimal ele está relacionado.
+		//Verifique a qual decimal o nao-terminal estah relacionado.
 		switch(nonTerminal) {
 			case "LV":
 				word = 133;
@@ -285,6 +287,18 @@ public class Sintatico {
 			case "EXP_R":
 				word = 143;
 				break;
+			case "P":
+				word = 80;
+				break;
+			case "V":
+				word = 86;
+				break;
+			case "A":
+				word = 65;
+				break;
+			case "D":
+				word = 68;
+				break;
 		}
 		for(int i = 0; i < 16; i++) {
 			if(tabelaGOTO[0][i].getElemento() == word) {
@@ -293,8 +307,8 @@ public class Sintatico {
 		}
 		
 		return tabelaGOTO[line+1][column].getElemento();
-		//Line +1: A primeira linha da tabela é apenas de terminais.
-		//Dessa forma, o estado 0 está na linha 1, o estado 1 na linha 2
+		//Line +1: A primeira linha da tabela eh apenas de terminais.
+		//Dessa forma, o estado 0 estah na linha 1, o estado 1 na linha 2
 		//e assim por diante.
 	}
 	
@@ -366,31 +380,31 @@ public class Sintatico {
 		 * Legenda da TABELA ACTION: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referencia aos caracteres(Os terminais formados por mais de uma letra
 		 * tem digitos especiais).
-		 * Os Estados que são empilhados são positivos.
-		 * Os Estados que serão reduzidos são negativos.  
-		 * Os 59 estados(0 a 58 são a primeira coluna da tabela) são inseridos como 
+		 * Os Estados que sao empilhados sao positivos.
+		 * Os Estados que serao reduzidos sao negativos.  
+		 * Os 59 estados(0 a 58 são a primeira coluna da tabela) sao inseridos como 
 		 * objetos Acao com string nula.
 		 * A Tabela ASCII vai ate 127, entao usei numeros
 		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela, tinha
 		 * que colocar um numero peguei o 128;
-		 * Os erros são marcados por 132
-		 * A aceitação é marcada por 151 
-		 * Os terminais de só uma letra (incluindo $), por exemplo '*', são referenciados 
-		 * por seu próprio inteiro na tabela ASCII; no caso de *, 34.
+		 * Os erros sao marcados por 132
+		 * A aceitacao eh marcada por 151 
+		 * Os terminais de soh uma letra (incluindo $), por exemplo '*', sao referenciados 
+		 * por seu proprio inteiro na tabela ASCII; no caso de *, 34.
 		 * Legenda dos terminais de mais de uma letra:
-		 * 		inicio   = 133.		varinicio  = 134.	varfim  = 135.
-	 	 * 		int      = 136.   	real       = 137.	lit     = 138.
-	 	 * 		leia     = 139.	    id         = 140.	escreva = 141.
-	 	 * 		literal  = 142.	    num        = 143.	rcb     = 144.
-	 	 * 		opm		 = 145.	    se		   = 146.   entao   = 147.
-	 	 * 		opr		 = 148.	    fimse	   = 149.   fim     = 150.
+		 * 		inicio       = 133.		varinicio  = 134.	varfim  = 135.
+	 	 * 		int(inteiro) = 136.   	real       = 137.	lit     = 138.
+	 	 * 		leia         = 139.	    id         = 140.	escreva = 141.
+	 	 * 		literal      = 142.	    num        = 143.	rcb (<-)= 144.
+	 	 * 		opm		     = 145.	    se		   = 146.   entao   = 147.
+	 	 * 		opr		     = 148.	    fimse	   = 149.   fim     = 150.
 		 *	
 		 *	ERROS:
 		 *
-		 *		Os erros nas linhas que só possuem empilhamento são sinalizados por 132 e cada
+		 *		Os erros nas linhas que soh possuem empilhamento sao sinalizados por 132 e cada
 		 *	uma dessas linhas tem seu retorno de erro (Frase que indica o que houve).
-		 *		Os erros nas linhas em que há uma redução são marcados como 0. Para identificar
-		 *	qual foi a redução propagada, é feita uma busca na linha até encontrar a redução. 
+		 *		Os erros nas linhas em que ha uma reducao sao marcados como 0. Para identificar
+		 *	qual foi a reducao propagada, eh feita uma busca na linha ateh encontrar a reducao. 
 	 	 */
 		
 		TabelaSintatica tabelaACTION[][] = new TabelaSintatica[60][23];
@@ -399,14 +413,14 @@ public class Sintatico {
 	
 		for (int i = 0; i < 60; i++) {
 			for (int j = 0; j < 23; j++) {
-				tabelaACTION[i][j] = new TabelaSintatica(A[t]); // Ta com erro pq eu n coloquei valores para S
+				tabelaACTION[i][j] = new TabelaSintatica(A[t]); 
 				t++;
 			}
 		}
 		int word = 0;
 		int column = 0;
 
-		//Em caso de terminais de mais de uma letra, verifique a qual decimal ele está relacionado.
+		//Verifique a qual decimal ele estah relacionado.
 		switch(terminal) {
 		case "inicio":
 			word = 133;
@@ -417,7 +431,7 @@ public class Sintatico {
 		case "varfim":
 			word = 135;
 			break;
-		case "int":
+		case "inteiro":
 			word = 136;
 			break;
 		case "real":
@@ -441,7 +455,22 @@ public class Sintatico {
 		case "rcb":
 			word = 144;
 			break;
+		case "<-":
+			word = 144;
+			break;
 		case "opm":
+			word = 145;
+			break;
+		case "+":
+			word = 145;
+			break;
+		case "-":
+			word = 145;
+			break;
+		case "*":
+			word = 145;
+			break;
+		case "/":
 			word = 145;
 			break;
 		case "se":
@@ -462,7 +491,13 @@ public class Sintatico {
 		case ";":
 			word = 59;
 			break;
-		default://Quando � um id
+		case "(":
+			word = 40;
+			break;
+		case ")":
+			word = 41;
+			break;
+		default://Quando eh um id ( A B C )
 			word = 140;
 			break;
 		}
@@ -474,8 +509,8 @@ public class Sintatico {
 		}
 		
 		return tabelaACTION[line+1][column].getElemento();
-			//Line +1: A primeira linha da tabela é apenas de terminais.
-			//Dessa forma, o estado 0 está na linha 1, o estado 1 na linha 2
+			//Line +1: A primeira linha da tabela eh apenas de terminais.
+			//Dessa forma, o estado 0 estah na linha 1, o estado 1 na linha 2
 			//e assim por diante.
 	}
 	
