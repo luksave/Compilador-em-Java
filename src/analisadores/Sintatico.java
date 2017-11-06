@@ -396,6 +396,7 @@ public class Sintatico {
 				 57, 132, 132, 132, 132, 132, 132, 132, 132,  46, 132, 132,  47, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132,
 				 58, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25, -25
 			};
+	
 		/*
 		 * Legenda da TABELA ACTION: Primeira linha utilizei a Tabela ASCII para fazer
 		 * referencia aos caracteres(Os terminais formados por mais de uma letra
