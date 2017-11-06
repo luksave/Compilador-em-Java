@@ -16,7 +16,7 @@ inicio
    c <- B+1;
    c <- c+1;
     
-   se (B<1)
+   se (B<1
    entao
      se (c <2)
      entao

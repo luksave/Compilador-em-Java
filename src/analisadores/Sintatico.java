@@ -113,7 +113,7 @@ public class Sintatico {
 			}
 			
 			//Senao, ha erro.
-			else{
+			else if(getACTION(state, simbolo.getLexema()) == 132){
 				erroencontrado = getErro(state);				
 				System.out.println("ERRO ENCONTRADO - " + erroencontrado);
 				erro = 1;
