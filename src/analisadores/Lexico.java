@@ -125,7 +125,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
@@ -343,6 +343,10 @@ public class Lexico {
 			System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
 		return null;
+	}
+	
+	public static void getLinhaeColuna () {
+		System.out.println("Linha: "+linhaerro+" Coluna: "+colunaerro);
 	}
 	
 }

@@ -10,7 +10,6 @@ import java.util.Stack;
 public class Sintatico {
 	
 	private static Scanner s;
-	private static int erro;
 
 	public static void analisadorSintatico() {
 		
@@ -29,7 +28,6 @@ public class Sintatico {
 		estados.push(0);
 		
 		String erroencontrado;
-		erro = 0;
 		
 		while(true) {
 			
@@ -41,6 +39,7 @@ public class Sintatico {
 				state = estados.peek();
 				erroencontrado = getErro(state);				
 				System.out.println("ERRO ENCONTRADO NO ESTADO "+state+" - " + erroencontrado);
+				Lexico.getLinhaeColuna();
 				return;
 			}
 			
