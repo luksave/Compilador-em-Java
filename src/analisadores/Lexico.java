@@ -222,7 +222,7 @@ public class Lexico {
 							return simaux;
 
 						case 6:
-							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "rcb", " ");
 							return simaux;
 
 						case 7:
