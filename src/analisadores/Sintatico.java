@@ -31,10 +31,18 @@ public class Sintatico {
 		String erroencontrado;
 		erro = 0;
 		
-		while(erro == 0) {
+		while(true) {
 			
 			//Encontre o estado no topo da pilha.
 			state = estados.peek();
+			
+			if(state == 132){
+				estados.pop();
+				state = estados.peek();
+				erroencontrado = getErro(state);				
+				System.out.println("ERRO ENCONTRADO NO ESTADO "+state+" - " + erroencontrado);
+				return;
+			}
 			
 			//Se havera empilhamento:
 				//Pela regra definida na tabela ACTION, se o numero eh maior que 0, indica empilhamento.
@@ -111,14 +119,7 @@ public class Sintatico {
 				System.out.println("Aceitacao");
 				return;
 			}
-			
-			//Senao, ha erro.
-			else if(getACTION(state, simbolo.getLexema()) == 132){
-				erroencontrado = getErro(state);				
-				System.out.println("ERRO ENCONTRADO - " + erroencontrado);
-				erro = 1;
-				s.nextLine();
-			}
+	
 		}
 		
 	}
