@@ -22,7 +22,7 @@ public class Sintatico {
 		int state;
 
 		//O primeiro simbolo do buffer.
-		Simbolo simbolo = Lexico.getLex(0);		//simbolos sÃ£o os lexemas que sÃ£o retornados.
+		Simbolo simbolo = Lexico.getLex(0);		//simbolos sÃƒÂ£o os lexemas que sÃƒÂ£o retornados.
 		
 		//O primeiro estado na pilha.
 		estados.push(0);
@@ -46,12 +46,12 @@ public class Sintatico {
 			//Se havera empilhamento:
 				//Pela regra definida na tabela ACTION, se o numero eh maior que 0, indica empilhamento.
 				//Confira tambem se nao eh o estado de aceitacao.
-			if((getACTION(state, simbolo.getLexema()) > 0) && (getACTION(state, simbolo.getLexema()) != 151)) { 
+			if((getACTION(state, simbolo.getToken()) > 0) && (getACTION(state, simbolo.getToken()) != 151)) { 
 				
-				System.out.println(" Estado: "+state+" \tTerminal: "+simbolo.getLexema()+
-						"\tEmpilha: "+getACTION(state, simbolo.getLexema()));
+				System.out.println(" Estado: "+state+" \tTerminal: "+simbolo.getToken()+
+						"\tEmpilha: "+getACTION(state, simbolo.getToken()));
 				
-				estados.push(getACTION(state, simbolo.getLexema()));
+				estados.push(getACTION(state, simbolo.getToken()));
 				
 				simbolo = Lexico.getLex(Lexico.pos);	//Procura o proximo Lexema.
 				
@@ -59,14 +59,14 @@ public class Sintatico {
 			
 			//Se havera reducao:
 				//Pela regra definida na tabela ACTION, se o numero eh menor que 0, indica empilhamento.
-			else if(getACTION(state, simbolo.getLexema()) <= 0) {
+			else if(getACTION(state, simbolo.getToken()) <= 0) {
 				
 				//Para voltar ao numero verdadeiro da producao a ser reduzida.
-				int reduce = getACTION(state, simbolo.getLexema()) * (-1);
+				int reduce = getACTION(state, simbolo.getToken()) * (-1);
 				
-				//Encontra a sentenÃ§a que esta sendo reduzida.
+				//Encontra a sentenÃƒÂ§a que esta sendo reduzida.
 				String sentenca = getSentenca(reduce);
-				System.out.println("\nSentença reduzida: "+sentenca);
+				System.out.println("\nSentenÃ§a reduzida: "+sentenca);
 				
 				//Para encontrar a quantidade de simbolos de Beta.
 				int qtdSimbolosBeta = 0;
@@ -105,16 +105,16 @@ public class Sintatico {
 				//Empilhe GOTO[t, A].
 				estados.push(getGOTO(state, nonterminal.toString()));
 
-				System.out.println("\nEstado: "+state+"\tNão terminal: "+nonterminal+
+				System.out.println("\nEstado: "+state+"\tNÃ£o terminal: "+nonterminal+
 						"\tTransicao: "+getGOTO(state, nonterminal.toString()));
 				
 				//Imprima a producao A -> B.
-				System.out.println("\nSentença reduzida:"+sentenca);
+				System.out.println("\nSentenÃ§a reduzida:"+sentenca);
 				s.nextLine();
 			}
 			
 			//Se ha aceitacao
-			else if(getACTION(state, simbolo.getLexema()) == 151) {
+			else if(getACTION(state, simbolo.getToken()) == 151) {
 				System.out.println("Aceitacao");
 				return;
 			}
@@ -123,7 +123,7 @@ public class Sintatico {
 		
 	}
 	
-	public static String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produÃ§Ã£o
+	public static String getSentenca(int line) {//Recebe a linha a ser reduzida e devolve a produÃƒÂ§ÃƒÂ£o
 
 		EnumeracaoDaGramatica[] Enumeracao = new EnumeracaoDaGramatica[30];
 		// Atencao: A linha 1 da gramatica eh o elemento 0 da enumeracao. Por isso,
@@ -166,36 +166,36 @@ public class Sintatico {
 	public static String getErro (int line) {
 		
 		TabeladeErros tabelaerrosintatico = new TabeladeErros();
-		tabelaerrosintatico.tabeladeerros.put(0, "E0 - Código inicializado de forma incorreta - inicio");
-		tabelaerrosintatico.tabeladeerros.put(2, "E2 - Inicio de declaração de variáveis não declarado");
-		tabelaerrosintatico.tabeladeerros.put(3, "E3 - Tipos de dados, elementos de estrutura condicional (então e fimse), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(4, "E4 - Espaço para declaração de variáveis: Necessário declaração das variáveis, não sendo permitidos atribuições, operações, estruturas condicionais, parênteses ou ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(6, "E6 - Tipos de dados, elementos de estrutura condicional (então e fimse), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(7, "E7 - Tipos de dados, elementos de estrutura condicional (então e fimse), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(8, "E8 - Tipos de dados, elementos de estrutura condicional (então e fimse), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(9, "E9 - Tipos de dados, elementos de estrutura condicional (então e fim), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(11, "E11 - Leitura de varáveis: esperavasse um identificador");
-		tabelaerrosintatico.tabeladeerros.put(12, "E12 - Escrita de variáveis: esperavasse um identificador, um inteiro ou um literal");
-		tabelaerrosintatico.tabeladeerros.put(13, "E13 - Atribuição de variáveis: esperavasse uma atribuição");
-		tabelaerrosintatico.tabeladeerros.put(14, "E14 - Inicio de expressão do condicional SE: esperavasse um abre parênteses");
-		tabelaerrosintatico.tabeladeerros.put(16, "E16 - Espaço para declaração de variáveis: esperavasse um varfim ou um identificador");
-		tabelaerrosintatico.tabeladeerros.put(17, "E17 - Final de atribuição, expressão, escrita, leitura ou espaço para declaração de variáveis: esperavasse um ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(18, "E18 - Espaço para declaração de variáveis: esperavasse um tipo para o identificador");
-		tabelaerrosintatico.tabeladeerros.put(23, "E23 - Tipos de dados, elementos de estrutura condicional (então e fim), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(24, "E24 - Tipos de dados, elementos de estrutura condicional (então e fim), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(25, "E25 - Tipos de dados, elementos de estrutura condicional (então e fim), delimitação de declaração de variáveis, atribuição, operadores (relacionais e aritméticos), inicio de programa e declaração de variáveis, parênteses ou ponto e vírgula não permitidos");
-		tabelaerrosintatico.tabeladeerros.put(27, "E27 - Final de atribuição, expressão, escrita, leitura ou espaço para declaração de variáveis: esperavasse um ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(28, "E28 - Final de atribuição, expressão, escrita, leitura ou espaço para declaração de variáveis: esperavasse um ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(32, "E32 - Atribuição de variáveis ou expressão aritmética: esperavasse um identificador ou um numeral");
-		tabelaerrosintatico.tabeladeerros.put(33, "E33 - Atribuição de variáveis ou expressão relacional: esperavasse um identificador ou um numeral");
-		tabelaerrosintatico.tabeladeerros.put(36, "E36 - Final de atribuição, expressão, escrita, leitura ou espaço para declaração de variáveis: esperavasse um ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(44, "E44 - Final de atribuição, expressão, escrita, leitura ou espaço para declaração de variáveis: esperavasse um ponto e vírgula");
-		tabelaerrosintatico.tabeladeerros.put(45, "E45 - Expressão aritmética: esperavasse um operador aritmético");
-		tabelaerrosintatico.tabeladeerros.put(48, "E48 - Fim de expressão do condicional SE: esperavasse um fecha parênteses");
-		tabelaerrosintatico.tabeladeerros.put(49, "E49 - Expressão relacional: esperavasse um operador relacional");
-		tabelaerrosintatico.tabeladeerros.put(53, "E53 - Expressão aritmética: esperavasse um identificador ou um numeral");
-		tabelaerrosintatico.tabeladeerros.put(54, "E54 - Estrutura condicional SE: esperavasse um então");
-		tabelaerrosintatico.tabeladeerros.put(57, "E57 - Expressão relacional: esperavasse um identificador ou um numeral");
+		tabelaerrosintatico.tabeladeerros.put(0, "E0 - CÃ³digo inicializado de forma incorreta - inicio");
+		tabelaerrosintatico.tabeladeerros.put(2, "E2 - Inicio de declaraÃ§Ã£o de variÃ¡veis nÃ£o declarado");
+		tabelaerrosintatico.tabeladeerros.put(3, "E3 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fimse), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(4, "E4 - EspaÃ§o para declaraÃ§Ã£o de variÃ¡veis: NecessÃ¡rio declaraÃ§Ã£o das variÃ¡veis, nÃ£o sendo permitidos atribuiÃ§Ãµes, operaÃ§Ãµes, estruturas condicionais, parÃªnteses ou ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(6, "E6 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fimse), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(7, "E7 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fimse), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(8, "E8 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fimse), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(9, "E9 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fim), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(11, "E11 - Leitura de varÃ¡veis: esperavasse um identificador");
+		tabelaerrosintatico.tabeladeerros.put(12, "E12 - Escrita de variÃ¡veis: esperavasse um identificador, um inteiro ou um literal");
+		tabelaerrosintatico.tabeladeerros.put(13, "E13 - AtribuiÃ§Ã£o de variÃ¡veis: esperavasse uma atribuiÃ§Ã£o");
+		tabelaerrosintatico.tabeladeerros.put(14, "E14 - Inicio de expressÃ£o do condicional SE: esperavasse um abre parÃªnteses");
+		tabelaerrosintatico.tabeladeerros.put(16, "E16 - EspaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um varfim ou um identificador");
+		tabelaerrosintatico.tabeladeerros.put(17, "E17 - Final de atribuiÃ§Ã£o, expressÃ£o, escrita, leitura ou espaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(18, "E18 - EspaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um tipo para o identificador");
+		tabelaerrosintatico.tabeladeerros.put(23, "E23 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fim), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(24, "E24 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fim), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(25, "E25 - Tipos de dados, elementos de estrutura condicional (entÃ£o e fim), delimitaÃ§Ã£o de declaraÃ§Ã£o de variÃ¡veis, atribuiÃ§Ã£o, operadores (relacionais e aritmÃ©ticos), inicio de programa e declaraÃ§Ã£o de variÃ¡veis, parÃªnteses ou ponto e vÃ­rgula nÃ£o permitidos");
+		tabelaerrosintatico.tabeladeerros.put(27, "E27 - Final de atribuiÃ§Ã£o, expressÃ£o, escrita, leitura ou espaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(28, "E28 - Final de atribuiÃ§Ã£o, expressÃ£o, escrita, leitura ou espaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(32, "E32 - AtribuiÃ§Ã£o de variÃ¡veis ou expressÃ£o aritmÃ©tica: esperavasse um identificador ou um numeral");
+		tabelaerrosintatico.tabeladeerros.put(33, "E33 - AtribuiÃ§Ã£o de variÃ¡veis ou expressÃ£o relacional: esperavasse um identificador ou um numeral");
+		tabelaerrosintatico.tabeladeerros.put(36, "E36 - Final de atribuiÃ§Ã£o, expressÃ£o, escrita, leitura ou espaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(44, "E44 - Final de atribuiÃ§Ã£o, expressÃ£o, escrita, leitura ou espaÃ§o para declaraÃ§Ã£o de variÃ¡veis: esperavasse um ponto e vÃ­rgula");
+		tabelaerrosintatico.tabeladeerros.put(45, "E45 - ExpressÃ£o aritmÃ©tica: esperavasse um operador aritmÃ©tico");
+		tabelaerrosintatico.tabeladeerros.put(48, "E48 - Fim de expressÃ£o do condicional SE: esperavasse um fecha parÃªnteses");
+		tabelaerrosintatico.tabeladeerros.put(49, "E49 - ExpressÃ£o relacional: esperavasse um operador relacional");
+		tabelaerrosintatico.tabeladeerros.put(53, "E53 - ExpressÃ£o aritmÃ©tica: esperavasse um identificador ou um numeral");
+		tabelaerrosintatico.tabeladeerros.put(54, "E54 - Estrutura condicional SE: esperavasse um entÃ£o");
+		tabelaerrosintatico.tabeladeerros.put(57, "E57 - ExpressÃ£o relacional: esperavasse um identificador ou um numeral");
 		
 		return tabelaerrosintatico.tabeladeerros.get(line);
 	}
@@ -446,7 +446,7 @@ public class Sintatico {
 		 * tem digitos especiais).
 		 * Os Estados que sao empilhados sao positivos.
 		 * Os Estados que serao reduzidos sao negativos.  
-		 * Os 59 estados(0 a 58 sÃ£o a primeira coluna da tabela) sao inseridos como 
+		 * Os 59 estados(0 a 58 sÃƒÂ£o a primeira coluna da tabela) sao inseridos como 
 		 * objetos Acao com string nula.
 		 * A Tabela ASCII vai ate 127, entao usei numeros
 		 * acima desse valor como auxiliares. Numeros: 128 e o vertice da tabela, tinha
@@ -529,14 +529,11 @@ public class Sintatico {
 			word = 143;
 			break;
 		
-		//rcb na gramatica eh simbolizado por <-
-		case "<-":
+		case "rcb":
 			word = 144;
 			break;
-		
-		//Casos opm
-		case "+":	case "-":
-		case "*":	case "/":
+
+		case "opm":
 			word = 145;
 			break;
 			
@@ -548,9 +545,7 @@ public class Sintatico {
 			word = 147;
 			break;
 		
-		//CASOS opr
-		case "<" :	case ">" :	case ">=":
-		case "<=":	case "<>":	case "=":
+		case "opr":
 			word = 148;
 			break;
 			
@@ -562,23 +557,23 @@ public class Sintatico {
 			word = 150;
 			break;
 		
-		case ";":
+		case "pt_v":
 			word = 59;
 			break;
 		
-		case "(":
+		case "ab_p":
 			word = 40;
 			break;
 		
-		case ")":
+		case "fc_p":
 			word = 41;
 			break;
 		
-		case "EOF":	//Fim do arquivo
+		case "EOF":	
 			word = 36;
 			break;
 		
-		default:	//Quando eh um id ( A B C )
+		case "id":	
 			word = 140;
 			break;
 		}
