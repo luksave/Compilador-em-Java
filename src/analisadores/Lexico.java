@@ -68,7 +68,7 @@ public class Lexico {
 		 * estado inicial; 132 representa a linha dos erros
 		 */
 
-		// Aqui eu crio a pilha dos estados da tabela de transiÁ„o
+		// Aqui eu crio a pilha dos estados da tabela de transi√ß√£o
 		Stack<Integer> estados = new Stack<Integer>();
 
 		// Aqui eu crio a tabela de transicao e passo os valores para ela
@@ -115,12 +115,12 @@ public class Lexico {
 		TabeladeErros tabelahashe = new TabeladeErros();
 
 		// Preencho a Tabela de Erros
-		tabelahashe.tabeladeerros.put(1, "Identificador n„o permitido");
-		tabelahashe.tabeladeerros.put(16, "Constantes literais n„o permitidas");
-		tabelahashe.tabeladeerros.put(18, "Erro de foramataÁ„o de coment·rio (chaves)");
-		tabelahashe.tabeladeerros.put(21, "Constantes n˙mericas n„o permitidas");
-		tabelahashe.tabeladeerros.put(23, "Constantes n˙mericas n„o permitidas");
-		tabelahashe.tabeladeerros.put(24, "Constantes n˙mericas n„o permitidas");
+		tabelahashe.tabeladeerros.put(1, "Identificador n√£o permitido");
+		tabelahashe.tabeladeerros.put(16, "Constantes literais n√£o permitidas");
+		tabelahashe.tabeladeerros.put(18, "Erro de foramata√ß√£o de coment√°rio (chaves)");
+		tabelahashe.tabeladeerros.put(21, "Constantes n√∫mericas n√£o permitidas");
+		tabelahashe.tabeladeerros.put(23, "Constantes n√∫mericas n√£o permitidas");
+		tabelahashe.tabeladeerros.put(24, "Constantes n√∫mericas n√£o permitidas");
 		
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
@@ -157,7 +157,7 @@ public class Lexico {
 				//logo coloco ele na coluna correspondente a "restante dos caracteres"
 				if (test == 0 && caracter != 10 && caracter != 13 && caracter != 32) coluna = 17;
 				
-				//Verifico se o caracter eh espaÁo, tabulacao ou pula linha
+				//Verifico se o caracter eh espa√ßo, tabulacao ou pula linha
 				if (test == 0 && (caracter == 10 || caracter == 13 || caracter == 32)) coluna = 19;
 				
 				//Verifico se eh EOF
@@ -188,7 +188,7 @@ public class Lexico {
 				// Va para o estado inicial do proximo lexema.
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
 										
-					// Verifico se o lexema j· esta na Tabela de Simbolos
+					// Verifico se o lexema j√° esta na Tabela de Simbolos
 					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
 					if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
 						Simbolo aux;
@@ -202,11 +202,11 @@ public class Lexico {
 						estados.pop();
 						switch (estados.peek()) {
 						case 1:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 2:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 3:
@@ -214,70 +214,70 @@ public class Lexico {
 							return simaux;
 
 						case 4:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 5:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 6:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 7:
-							simaux = new Simbolo(bffCaracter.toString(), "OPR", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opr", " ");
 							return simaux;
 
 						case 8:
-							simaux = new Simbolo(bffCaracter.toString(), "PT_V", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "pt_v", " ");
 							return simaux;
 
 						case 9:
-							simaux = new Simbolo(bffCaracter.toString(), "AB_P", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "ab_p", " ");
 							return simaux;
 
 						case 10:
-							simaux = new Simbolo(bffCaracter.toString(), "FC_P", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "fc_p", " ");
 							return simaux;
 
 						case 11:
-							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opm", " ");
 							return simaux;
 
 						case 12:
-							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opm", " ");
 							return simaux;
 
 						case 13:
-							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opm", " ");
 							return simaux;
 
 						case 14:
-							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opm", " ");
 							return simaux;
 
 						case 26:
-							simaux = new Simbolo(bffCaracter.toString(), "OPM", " ");
+							simaux = new Simbolo(bffCaracter.toString(), "opm", " ");
 							return simaux;
 
 						case 16:
-							simaux = new Simbolo(bffCaracter.toString(), "Literal", "literal");
+							simaux = new Simbolo(bffCaracter.toString(), "literal", "literal");
 							return simaux;		
 						
 						case 18:
-							System.out.println("Coment·rio: "+bffCaracter);
+							System.out.println("Coment√°rio: "+bffCaracter);
 
 						case 19:
-							simaux = new Simbolo(bffCaracter.toString(), "Num", "inteiro");
+							simaux = new Simbolo(bffCaracter.toString(), "num", "inteiro");
 							return simaux;
 
 						case 21:
-							simaux = new Simbolo(bffCaracter.toString(), "Num", "real");
+							simaux = new Simbolo(bffCaracter.toString(), "num", "real");
 							return simaux;
 
 						case 24:
-							simaux = new Simbolo(bffCaracter.toString(), "Num", "real");
+							simaux = new Simbolo(bffCaracter.toString(), "num", "real");
 							return simaux;
 
 						case 25:
@@ -301,7 +301,7 @@ public class Lexico {
 					// Volte o estado atual para inicial do proximo lexema.
 					estados.push(tabeladetransicao[1][coluna].getElemento());
 					
-					// Apagar o conte˙do do buffer.
+					// Apagar o conte√∫do do buffer.
 					bffCaracter.delete(0, bffCaracter.length());
 
 				}
