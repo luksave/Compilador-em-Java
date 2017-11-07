@@ -48,8 +48,8 @@ public class Sintatico {
 				//Confira tambem se nao eh o estado de aceitacao.
 			if((getACTION(state, simbolo.getToken()) > 0) && (getACTION(state, simbolo.getToken()) != 151)) { 
 				
-				System.out.println(" Estado: "+state+" \tTerminal: "+simbolo.getToken()+
-						"\tEmpilha: "+getACTION(state, simbolo.getToken()));
+				System.out.println("Estado: "+state+"\nTerminal: "+simbolo.getToken()+
+						"\nEmpilha: "+getACTION(state, simbolo.getToken())+"\n");
 				
 				estados.push(getACTION(state, simbolo.getToken()));
 				
@@ -66,8 +66,7 @@ public class Sintatico {
 				
 				//Encontra a sentenÃ§a que esta sendo reduzida.
 				String sentenca = getSentenca(reduce);
-				System.out.println("\nSentença reduzida: "+sentenca);
-				
+		
 				//Para encontrar a quantidade de simbolos de Beta.
 				int qtdSimbolosBeta = 0;
 				boolean isBeta = false;
@@ -86,8 +85,6 @@ public class Sintatico {
 				
 				}
 				
-				System.out.println("\nQuantidade de simbolos: "+qtdSimbolosBeta);
-				
 				int j = 0;
 				//Para recuperar o nao-terminal
 				while(sentenca.charAt(j) != ' ') {
@@ -105,11 +102,11 @@ public class Sintatico {
 				//Empilhe GOTO[t, A].
 				estados.push(getGOTO(state, nonterminal.toString()));
 
-				System.out.println("\nEstado: "+state+"\tNão terminal: "+nonterminal+
-						"\tTransicao: "+getGOTO(state, nonterminal.toString()));
+				System.out.println("Estado: "+state+"\nNao terminal: "+nonterminal+
+						"\nTransicao: "+getGOTO(state, nonterminal.toString())+"\n");
 				
 				//Imprima a producao A -> B.
-				System.out.println("\nSentença reduzida:"+sentenca);
+				System.out.println("Sentenca reduzida:"+sentenca);
 				s.nextLine();
 			}
 			

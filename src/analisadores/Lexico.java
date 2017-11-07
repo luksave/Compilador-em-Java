@@ -115,17 +115,17 @@ public class Lexico {
 		TabeladeErros tabelahashe = new TabeladeErros();
 
 		// Preencho a Tabela de Erros
-		tabelahashe.tabeladeerros.put(1, "Identificador não permitido");
-		tabelahashe.tabeladeerros.put(16, "Constantes literais não permitidas");
-		tabelahashe.tabeladeerros.put(18, "Erro de foramatação de comentário (chaves)");
-		tabelahashe.tabeladeerros.put(21, "Constantes númericas não permitidas");
-		tabelahashe.tabeladeerros.put(23, "Constantes númericas não permitidas");
-		tabelahashe.tabeladeerros.put(24, "Constantes númericas não permitidas");
+		tabelahashe.tabeladeerros.put(1, "Identificador nao permitido");
+		tabelahashe.tabeladeerros.put(16, "Constantes literais nao permitidas");
+		tabelahashe.tabeladeerros.put(18, "Erro de foramatacao de comentario (chaves)");
+		tabelahashe.tabeladeerros.put(21, "Constantes numericas nao permitidas");
+		tabelahashe.tabeladeerros.put(23, "Constantes numericas nao permitidas");
+		tabelahashe.tabeladeerros.put(24, "Constantes numericas nao permitidas");
 		
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
@@ -157,7 +157,7 @@ public class Lexico {
 				//logo coloco ele na coluna correspondente a "restante dos caracteres"
 				if (test == 0 && caracter != 10 && caracter != 13 && caracter != 32) coluna = 17;
 				
-				//Verifico se o caracter eh espaço, tabulacao ou pula linha
+				//Verifico se o caracter eh espaco, tabulacao ou pula linha
 				if (test == 0 && (caracter == 10 || caracter == 13 || caracter == 32)) coluna = 19;
 				
 				//Verifico se eh EOF
@@ -187,7 +187,7 @@ public class Lexico {
 				// Se o estado resultado e 0, desempilha a pilha toda e apaga o buffer de caracteres. 
 				// Va para o estado inicial do proximo lexema.
 				if (tabeladetransicao[linha][coluna].getElemento() == 0) {
-										
+							 			
 					// Verifico se o lexema já esta na Tabela de Simbolos
 					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
 					if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
@@ -310,6 +310,7 @@ public class Lexico {
 				// Verificando erros
 				if (tabeladetransicao[linha][coluna].getElemento() == 132) {
 					System.out.println("ERRO ENCONTRADO - " + tabelahashe.tabeladeerros.get(linha));
+					System.out.println("\nLinha na tabela: "+linha+" Coluna: "+coluna);
 					System.out.println("\nLinha: "+linhaerro+" Coluna: "+colunaerro);
 					
 					erro = 1;
