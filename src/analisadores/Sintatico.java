@@ -22,7 +22,7 @@ public class Sintatico {
 		int state;
 
 		//O primeiro simbolo do buffer.
-		Simbolo simbolo = Lexico.getLex(0);		//simbolos sÃ£o os lexemas que sÃ£o retornados.
+		Simbolo simbolo = Lexico.getLex(0);		//simbolos sao os lexemas que serao retornados.
 		
 		//O primeiro estado na pilha.
 		estados.push(0);
@@ -64,7 +64,7 @@ public class Sintatico {
 				//Para voltar ao numero verdadeiro da producao a ser reduzida.
 				int reduce = getACTION(state, simbolo.getToken()) * (-1);
 				
-				//Encontra a sentenÃ§a que esta sendo reduzida.
+				//Encontra a sentenca que esta sendo reduzida.
 				String sentenca = getSentenca(reduce);
 		
 				//Para encontrar a quantidade de simbolos de Beta.
@@ -154,7 +154,7 @@ public class Sintatico {
 		Enumeracao[26] = new EnumeracaoDaGramatica(27,"CORPO -> CMD CORPO");
 		Enumeracao[27] = new EnumeracaoDaGramatica(28,"CORPO -> COND CORP");
 		Enumeracao[28] = new EnumeracaoDaGramatica(29,"CORPO -> fimse");
-		Enumeracao[29] = new EnumeracaoDaGramatica(29,"A -> fim");
+		Enumeracao[29] = new EnumeracaoDaGramatica(30,"A -> fim");
 		
 		return Enumeracao[line-1].getSentenca();
 
