@@ -83,7 +83,7 @@ public class Lexico {
 		}
 
 		// Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash
-		TabeladeSimbolos.iniciarTabeladeSimbolos();
+		if (pos == 0) TabeladeSimbolos.iniciarTabeladeSimbolos();
 
 		// Aqui eu crio a tabela hash de erros
 		TabeladeErros tabelahashe = new TabeladeErros();

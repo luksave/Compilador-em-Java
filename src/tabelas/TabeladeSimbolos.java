@@ -7,6 +7,7 @@ public class TabeladeSimbolos {
 	
 	public static Hashtable<String,Simbolo> tabeladesimbolos;
 	
+	//Funcao chamada no Lexico, para iniciar a tabela de simbolos
 	public static void iniciarTabeladeSimbolos(){
 		TabeladeSimbolos.tabeladesimbolos = new Hashtable <String, Simbolo> ();
 		Simbolo sim1 = new Simbolo("inicio", "inicio", " ");
