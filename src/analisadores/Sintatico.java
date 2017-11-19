@@ -109,7 +109,7 @@ public class Sintatico {
 				System.out.println(reduce+" Sentenca reduzida: "+sentenca+"\n");
 				
 				//Faca a chamada para o Semantico com o numero da reducao
-				Semantico.callSemantico(reduce);
+				Semantico.callSemantico(reduce, Semantico.pos);
 				
 				s.nextLine();
 			}
