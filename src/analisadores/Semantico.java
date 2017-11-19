@@ -16,7 +16,7 @@ public class Semantico {
 		try {
 			
 			FileOutputStream stream = new FileOutputStream(
-				"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/PROGRAMA.txt");
+				"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/PROGRAMA.c");
 			
 			stream.getChannel().position(pos);
 			

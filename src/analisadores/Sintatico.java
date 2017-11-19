@@ -48,8 +48,7 @@ public class Sintatico {
 				//Confira tambem se nao eh o estado de aceitacao.
 			if((getACTION(state, simbolo.getToken()) > 0) && (getACTION(state, simbolo.getToken()) != 151)) { 
 				
-				System.out.println("Estado: "+state+"\nTerminal: "+simbolo.getToken()+
-						"\nEmpilha: "+getACTION(state, simbolo.getToken())+"\n");
+				//System.out.println("Estado: "+state+"\nTerminal: "+simbolo.getToken()+"\nEmpilha: "+getACTION(state, simbolo.getToken())+"\n");
 				
 				estados.push(getACTION(state, simbolo.getToken()));
 				
@@ -102,16 +101,13 @@ public class Sintatico {
 				//Empilhe GOTO[t, A].
 				estados.push(getGOTO(state, nonterminal.toString()));
 
-				System.out.println("Estado: "+state+"\nNao terminal: "+nonterminal+
-						"\nTransicao: "+getGOTO(state, nonterminal.toString())+"\n");
+				//System.out.println("Estado: "+state+"\nNao terminal: "+nonterminal+"\nTransicao: "+getGOTO(state, nonterminal.toString())+"\n");
 				
 				//Imprima a producao A -> B.
 				System.out.println(reduce+" Sentenca reduzida: "+sentenca+"\n");
 				
 				//Faca a chamada para o Semantico com o numero da reducao
-					//Coloquei 5 pra exemplificar
-					//REMOVA O 5 E RETIRE O COMENTARIO DE REDUCE
-				Semantico.callSemantico(/*reduce*/5, Semantico.pos);
+				Semantico.callSemantico(reduce, Semantico.pos);
 				
 				s.nextLine();
 			}

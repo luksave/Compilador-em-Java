@@ -82,34 +82,8 @@ public class Lexico {
 			}
 		}
 
-		// Aqui eu crio a tabela hash de simbolos
-		TabeladeSimbolos tabelahash = new TabeladeSimbolos();
-
 		// Aqui eu crio os Simbolos das Palavras-Chaves e coloco na Hash
-		Simbolo sim1 = new Simbolo("inicio", "inicio", " ");
-		tabelahash.tabeladesimbolos.put("inicio", sim1);
-		Simbolo sim2 = new Simbolo("varinicio", "varinicio", " ");
-		tabelahash.tabeladesimbolos.put("varinicio", sim2);
-		Simbolo sim3 = new Simbolo("varfim", "varfim", " ");
-		tabelahash.tabeladesimbolos.put("varfim", sim3);
-		Simbolo sim4 = new Simbolo("escreva", "escreva", " ");
-		tabelahash.tabeladesimbolos.put("escreva", sim4);
-		Simbolo sim5 = new Simbolo("leia", "leia", " ");
-		tabelahash.tabeladesimbolos.put("leia", sim5);
-		Simbolo sim6 = new Simbolo("se", "se", " ");
-		tabelahash.tabeladesimbolos.put("se", sim6);
-		Simbolo sim7 = new Simbolo("entao", "entao", " ");
-		tabelahash.tabeladesimbolos.put("entao", sim7);
-		Simbolo sim8 = new Simbolo("fimse", "fimse", " ");
-		tabelahash.tabeladesimbolos.put("fimse", sim8);
-		Simbolo sim9 = new Simbolo("fim", "fim", " ");
-		tabelahash.tabeladesimbolos.put("fim", sim9);
-		Simbolo sim10 = new Simbolo("inteiro", "inteiro", " ");
-		tabelahash.tabeladesimbolos.put("inteiro", sim10);
-		Simbolo sim11 = new Simbolo("literal", "literal", " ");
-		tabelahash.tabeladesimbolos.put("literal", sim11);
-		Simbolo sim12 = new Simbolo("real", "real", " ");
-		tabelahash.tabeladesimbolos.put("real", sim12);
+		TabeladeSimbolos.iniciarTabeladeSimbolos();
 
 		// Aqui eu crio a tabela hash de erros
 		TabeladeErros tabelahashe = new TabeladeErros();
@@ -125,7 +99,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			
@@ -190,9 +164,9 @@ public class Lexico {
 							 			
 					// Verifico se o lexema já esta na Tabela de Simbolos
 					// Se sim, retorno o valor da chave(lexema) contido na Tabela de Simbolos
-					if (tabelahash.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
+					if (TabeladeSimbolos.tabeladesimbolos.containsKey(bffCaracter.toString()) == true) {
 						Simbolo aux;
-						aux = tabelahash.tabeladesimbolos.get(bffCaracter.toString());
+						aux = TabeladeSimbolos.tabeladesimbolos.get(bffCaracter.toString());
 						return aux;
 
 					// Se nao, vejo qual o estado de aceitacao que o lexema parou, adiciono na
@@ -282,7 +256,7 @@ public class Lexico {
 
 						case 25:
 							simaux = new Simbolo(bffCaracter.toString(), "id", " ");
-							tabelahash.tabeladesimbolos.put(simaux.getLexema(), simaux);
+							TabeladeSimbolos.tabeladesimbolos.put(simaux.getLexema(), simaux);
 							return simaux;
 
 						default:
