@@ -125,7 +125,7 @@ public class Lexico {
 		try {
 			StringBuilder bffCaracter = new StringBuilder(); // Buffer para caracteres.
 			FileInputStream stream = new FileInputStream(
-					"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/texto.txt");
+					"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/texto.txt");
 
 			int caracter = 0, linha = 1, coluna = 0; // Caracter para leitura dos caracteres.			
 			

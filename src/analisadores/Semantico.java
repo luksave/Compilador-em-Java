@@ -14,14 +14,15 @@ public class Semantico {
 	public static void callSemantico (int reduce, int aux) {
 		
 		try {
+			
 			FileOutputStream stream = new FileOutputStream(
-				"C:/Users/Matheus Paiva/Documents/GitHub/Comp-em-Java/PROGRAMA.txt");
+				"C:/Users/Lucas Felipe/Documents/GitHub/Comp-em-Java/PROGRAMA.txt");
 			
 			stream.getChannel().position(pos);
 			
 			escreverArquivo = new BufferedWriter(new OutputStreamWriter(stream, "UTF-8"));
-		
-			//Switch do reduce, para saber qual a redicao (Os return com espacos, terao acoes, os sem espacos n faz nd)
+			
+			//Switch do reduce, para saber qual a reducao (Os return com espacos, terao acoes, os sem espacos n faz nd)
 			switch(reduce) {
 				case 1: return;
 				case 2: return;
@@ -32,6 +33,7 @@ public class Semantico {
 							escreverArquivo.newLine();
 							escreverArquivo.newLine();
 							escreverArquivo.write( "Texto a ser escrito no txt" );
+							escreverArquivo.flush();
 							return;
 				case 6: 	return;
 				case 7: 	return;
@@ -60,6 +62,8 @@ public class Semantico {
 				case 30: return;	
 			}
 			stream.close();
+			escreverArquivo.close();
+			
 		} catch(IOException e) {
 					System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
 		}
